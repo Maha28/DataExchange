@@ -24,6 +24,12 @@
 	    		<th>C</th>
 	    		<th>D</th>
     		</tr>
+     	{% for entry in source2 %}
+			<tr>
+				<td>{{entry.C}}</td>
+				<td>{{entry.D}}</td>
+			</tr>
+    	{% endfor %}	   		
     	</table>    	
     </div>    
 	<div class="viewTable">
@@ -33,6 +39,12 @@
 	    		<th>E</th>
 	    		<th>F</th>
     		</tr>
+    	{% for entry in source3 %}
+			<tr>
+				<td>{{entry.E}}</td>
+				<td>{{entry.F}}</td>
+			</tr>
+    	{% endfor %}	    		
     	</table>    	
     </div>   
 {%endblock%}

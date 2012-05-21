@@ -16,7 +16,18 @@ class SourceManager(models.Manager):
             i = i+1
     
     def get_source1(self):
-        return Source1.objects.all()    
+        return Source1.objects.all() 
+      
+    def get_source2(self):
+        return Source2.objects.all() 
+    
+    def get_source3(self):
+        return Source3.objects.all()         
+    
+    def clear_source(self):
+        Source1.objects.all().delete()
+        Source2.objects.all().delete() 
+        Source3.objects.all().delete()  
 
 class Source1(models.Model):    
     objects = SourceManager()

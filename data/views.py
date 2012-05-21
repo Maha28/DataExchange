@@ -10,11 +10,11 @@ def home(request):
 def source(request):
     context = {}
     source1 = models.Source1.objects.get_source1()
-    #source2 = request.user.get_traveller().get_requests()
-    #source3 = request.user.get_traveller().get_requests()
+    source2 = models.Source2.objects.get_source2()
+    source3 = models.Source3.objects.get_source3()
     context['source1'] = source1
-    #context['source2'] = source2  
-    #context['source3'] = source3  
+    context['source2'] = source2  
+    context['source3'] = source3  
     return render(request, 'source.html', context)
 
 def mapping(request):
@@ -29,4 +29,9 @@ def database(request):
 def populate_source(request):
     models.Source1.objects.populate_source()
     messages.success(request, "You have successfully populated the source tables")
+    return HttpResponseRedirect(reverse('database'))    
+
+def clear_source(request):
+    models.Source1.objects.clear_source()
+    messages.success(request, "You have successfully cleared the source table")
     return HttpResponseRedirect(reverse('database'))    

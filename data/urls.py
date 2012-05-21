@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'target/$', 'data.views.target', name='target'),
     url(r'database/$', 'data.views.database', name='database'),
     url(r'database/populate_source$', 'data.views.populate_source', name='populate_source'),
+    url(r'database/clear_source$', 'data.views.clear_source', name='clear_source'),
 )
