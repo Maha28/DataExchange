@@ -2,9 +2,14 @@ import os, random, string
 from django.db import models
 
 class SourceManager(models.Manager):
+    MAX_RANDOM_ENTRIES = 10
+    
     def populate_source(self):
-        source = Source1(A=id_generator(2),B=id_generator(2))
-        source.save()
+        i = 0
+        while i<self.MAX_RANDOM_ENTRIES:
+            source = Source1(A=id_generator(2),B=id_generator(2))
+            source.save()
+            i = i+1
 
 class Source1(models.Model):    
     objects = SourceManager()
