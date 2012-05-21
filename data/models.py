@@ -1,16 +1,12 @@
+import os, random, string
 from django.db import models
-import os
-import random
 
 class SourceManager(models.Manager):
     def populate_source(self):
-        source = Source1(A=self.random_source_value(),B=self.random_source_value())
+        source = Source1(A=id_generator(2),B=id_generator(2))
         source.save()
-    
-    def random_source_value(self):
-        return os.urandom(1) +  random.randint(1,9)
 
-class Source1(models.Model):
+class Source1(models.Model):    
     objects = SourceManager()
     A = models.CharField(max_length=5)
     B = models.CharField(max_length=5)
@@ -35,4 +31,8 @@ class Target1(models.Model):
     
 class Target2(models.Model):
     C = models.CharField(max_length=5)
-    D = models.CharField(max_length=5)           
+    D = models.CharField(max_length=5)     
+    
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):  
+    return ''.join(random.choice(chars) for x in range(size)) 
+          
