@@ -8,7 +8,14 @@ def home(request):
     return render(request, 'home.html')
 
 def source(request):
-    return render(request, 'source.html')
+    context = {}
+    source1 = models.Source1.objects.get_source1()
+    #source2 = request.user.get_traveller().get_requests()
+    #source3 = request.user.get_traveller().get_requests()
+    context['source1'] = source1
+    #context['source2'] = source2  
+    #context['source3'] = source3  
+    return render(request, 'source.html', context)
 
 def mapping(request):
     return render(request, 'mapping.html')

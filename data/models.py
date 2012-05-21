@@ -7,9 +7,16 @@ class SourceManager(models.Manager):
     def populate_source(self):
         i = 0
         while i<self.MAX_RANDOM_ENTRIES:
-            source = Source1(A=id_generator(2),B=id_generator(2))
-            source.save()
+            source1 = Source1(A=id_generator(2),B=id_generator(2))
+            source2 = Source2(C=id_generator(2),D=id_generator(2))
+            source3 = Source3(E=id_generator(2),F=id_generator(2))
+            source1.save()
+            source2.save()
+            source3.save()
             i = i+1
+    
+    def get_source1(self):
+        return Source1.objects.all()    
 
 class Source1(models.Model):    
     objects = SourceManager()
@@ -21,7 +28,7 @@ class Source2(models.Model):
     C = models.CharField(max_length=5)
     D = models.CharField(max_length=5)   
     
-class Source2(models.Model):
+class Source3(models.Model):
     objects = SourceManager()
     E = models.CharField(max_length=5)
     F = models.CharField(max_length=5)       
