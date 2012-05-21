@@ -1,0 +1,35 @@
+{%extends "base.html"%}
+{%block title%}Database{%endblock%}
+{%block content%}
+    <header></header>
+      <section id="dbSections">
+	    <header><h2>Source</h2></header>
+	    <form>
+	    	<fieldset>
+	    		<button onclick="">Clear Source</button>
+	    		<button onclick="{% url populate_source %}">Populate Source</button>
+	    	</fieldset>
+	    </form>	    
+	  </section>
+      <section id="dbSections">
+	    <header><h2>Mappings</h2></header>
+	    	<fieldset>
+	    		<button onclick="">Populate mappings</button>	    	
+	    		<button onclick="">Clear mappings</button>
+	    	</fieldset>	    
+	  </section>		  
+      <section id="dbSections">
+	    <header><h2>Target</h2></header>
+	    	<fieldset>
+	    		<button onclick="">Clear target</button>
+	    	</fieldset>	    
+	  </section>	  
+      <section id="dbSections">
+	    <header><h2>Global</h2></header>
+	    <form>
+	    	<fieldset>
+	    		<button onclick="">Clear db</button>
+	    	</fieldset>
+	    </form>
+	  </section>
+{%endblock%}
