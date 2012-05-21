@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{% block title %}{% endblock title %}</title>
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+<div id="wrapper">
+<header id="mainHeader">
+  <hgroup>
+    <h1>Data Exchange</h1>
+  </hgroup>
+    <nav id="mainNav">
+    <h1>Main page navigation</h1>
+    <ul id="siteNav">
+      <li><a href="database.html">Database</a></li>
+      <li><a href="source.html">Source</a></li>
+      <li><a href="target.html">Target</a></li>
+      <li><a href="mapping.html">Mapping</a></li>
+      <li><a href="#" class="last">empty</a></li>
+    </ul>
+  </nav>
+</header>
+  <section id="content">
+    {% block content %}{% endblock content %}
+  </section>
+  <footer id="pageFooter">
+  <p>&copy;copyright 2012 Maher Manoubi</p>
+  <p><a href="#">legal</a> | <a href="#">privacy</a> </p>
+  </footer>
+</div>
+</body>
+</html>
