@@ -1,23 +1,20 @@
 {%extends "base.html"%}
-{%block title%}Target{%endblock%}
+{%block title%}Mapping{%endblock%}
 {%block content%}
-    <header><h2>View Target</h2></header>
+    <header><h2>View Mapping</h2></header>
 	<div class="viewTable">
-    	<h3>Target1</h3>
+    	<h3>Mapping</h3>
     	<table>
     		<tr>
-	    		<th>A</th>
-	    		<th>B</th>
+	    		<th>S</th>
+	    		<th>T</th>
     		</tr>
+    	{% for entry in mapping %}
+			<tr>
+				<td>{{entry.S}}</td>
+				<td>{{entry.T}}</td>
+			</tr>
+    	{% endfor %}	    		
     	</table>
-    </div>
-	<div class="viewTable">
-    	<h3>Target2</h3>
-    	<table>
-    		<tr>
-	    		<th>C</th>
-	    		<th>D</th>
-    		</tr>
-    	</table>    	
-    </div>      
+    </div>   
 {%endblock%}
