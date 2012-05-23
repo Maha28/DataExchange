@@ -50,7 +50,7 @@ class MappingManager(models.Manager):
     def populate_mapping(self):
         i = 0
         while i<self.MAX_RANDOM_ENTRIES:
-            mapping = Mapping(S=target_generator(2),T=source_generator(2))
+            mapping = Mapping(S=source_generator(2),T=target_generator(2))
             mapping.save()
             i = i+1
     
