@@ -7,9 +7,9 @@ class SourceManager(models.Manager):
     def populate_source(self):
         i = 0
         while i<self.MAX_RANDOM_ENTRIES:
-            source1 = Source1(A=id_generator(2),B=id_generator(2))
-            source2 = Source2(C=id_generator(2),D=id_generator(2))
-            source3 = Source3(E=id_generator(2),F=id_generator(2))
+            source1 = Source1(A=source_generator(2),B=source_generator(2))
+            source2 = Source2(C=source_generator(2),D=source_generator(2))
+            source3 = Source3(E=source_generator(2),F=source_generator(2))
             source1.save()
             source2.save()
             source3.save()
@@ -43,8 +43,25 @@ class Source3(models.Model):
     objects = SourceManager()
     E = models.CharField(max_length=5)
     F = models.CharField(max_length=5)       
+
+class MappingManager(models.Manager):
+    MAX_RANDOM_ENTRIES = 10
     
+    def populate_source(self):
+        i = 0
+        while i<self.MAX_RANDOM_ENTRIES:
+            source1 = Source1(S=source_generator(2),T=target_generator(2))
+            source1.save()
+            i = i+1
+    
+    def get_mapping(self):
+        return Mapping.objects.all()   
+    
+    def clear_source(self):
+        Mapping.objects.all().delete()
+
 class Mapping(models.Model):
+    objects = MappingManager()
     S = models.CharField(max_length=5)
     T = models.CharField(max_length=5)      
     
@@ -56,6 +73,9 @@ class Target2(models.Model):
     C = models.CharField(max_length=5)
     D = models.CharField(max_length=5)     
     
-def id_generator(size=6, chars=string.ascii_uppercase + string.digits):  
+def source_generator(size=6, chars=string.ascii_uppercase + string.digits):  
     return ''.join(random.choice(chars) for x in range(size)) 
+
+def target_generator(size=6, chars=string.digits):  
+    return '_'.join(random.choice(chars) for x in range(size)) 
           
