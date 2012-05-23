@@ -18,6 +18,9 @@ def source(request):
     return render(request, 'source.html', context)
 
 def mapping(request):
+    context = {}
+    mapping = models.Mapping.objects.get_mapping()
+    context['mapping'] = mapping 
     return render(request, 'mapping.html')
 
 def target(request):
@@ -33,5 +36,15 @@ def populate_source(request):
 
 def clear_source(request):
     models.Source1.objects.clear_source()
-    messages.success(request, "You have successfully cleared the source table")
+    messages.success(request, "You have successfully cleared the source tables")
     return HttpResponseRedirect(reverse('database'))    
+
+def populate_mapping(request):
+    models.Mapping.objects.populate_mapping()
+    messages.success(request, "You have successfully populated the mapping tables")
+    return HttpResponseRedirect(reverse('database'))    
+
+def clear_mapping(request):
+    models.Mapping.objects.clear_mapping()
+    messages.success(request, "You have successfully cleared the mapping tables")
+    return HttpResponseRedirect(reverse('database'))  
