@@ -47,17 +47,17 @@ class Source3(models.Model):
 class MappingManager(models.Manager):
     MAX_RANDOM_ENTRIES = 10
     
-    def populate_source(self):
+    def populate_mapping(self):
         i = 0
         while i<self.MAX_RANDOM_ENTRIES:
-            source1 = Source1(S=source_generator(2),T=target_generator(2))
-            source1.save()
+            mapping = Mapping(S=target_generator(2),T=source_generator(2))
+            mapping.save()
             i = i+1
     
     def get_mapping(self):
         return Mapping.objects.all()   
     
-    def clear_source(self):
+    def clear_mapping(self):
         Mapping.objects.all().delete()
 
 class Mapping(models.Model):

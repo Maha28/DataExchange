@@ -21,7 +21,7 @@ def mapping(request):
     context = {}
     mapping = models.Mapping.objects.get_mapping()
     context['mapping'] = mapping 
-    return render(request, 'mapping.html')
+    return render(request, 'mapping.html',context)
 
 def target(request):
     return render(request, 'target.html')
