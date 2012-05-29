@@ -83,14 +83,16 @@ def target_generator(size=6, chars=string.digits):
 class DOM:
     DOM = models.CharField(max_length=5)
     
-    def generate_DOM(self, source, mapping):
+    def __init__(self):
         DOM = ()
+    
+    def generate_DOM(self, source, mapping):
         for source_element in source.objects.all():
-            DOM.append(source_element.A)
-            DOM.append(source_element.B)
+            self.DOM.append(source_element.A)
+            self.DOM.append(source_element.B)
         for mapping_element in mapping.objects.all():
-            DOM.append(mapping_element.S)
-            DOM.append(mapping_element.T)
+            self.DOM.append(mapping_element.S)
+            self.DOM.append(mapping_element.T)
         #Remove duplicates    
         DOM = list(set(DOM))    
         
