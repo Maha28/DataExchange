@@ -80,7 +80,7 @@ def target_generator(size=6, chars=string.digits):
     return '_'.join(random.choice(chars) for x in range(size)) 
 
 
-class DOM:
+class Dom:
     dom_elements = list()
     
     def generate(self, source, mapping):
@@ -96,6 +96,33 @@ class DOM:
     def get_elements(self):
         return self.dom_elements
         
-class EQUAL:
-    pass
+class EqualManager(models.Manager):
+    def rule_8(self):
+        for dom_element in Dom.get_elements():
+            Equal(I=dom_element, J=dom_element)
+            Equal.save()
+    def rule_9(self):
+        pass
+    def rule_10(self):
+        pass
+    def rule_11(self):
+        pass
+    def rule_12(self):
+        pass                
+    
+    def generate_equal(self):
+        rule_8()
+        rule_9()
+        rule_10()
+        rule_11()
+        
+    def get_equal(self):
+        return Equal.objects.all()       
+        
+class Equal:
+    objects = SourceManager()
+    I = models.CharField(max_length=5)
+    J = models.CharField(max_length=5)
+    
+
           

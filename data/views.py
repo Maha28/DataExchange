@@ -25,9 +25,9 @@ def mapping(request):
 
 def equal(request):
     context = {}
-    DOM = models.DOM() 
-    DOM.generate(models.Source1,models.Mapping)
-    context['dom_elements'] = DOM.get_elements() 
+    Dom = models.Dom() 
+    Dom.generate(models.Source1,models.Mapping)
+    context['dom_elements'] = Dom.get_elements() 
     return render(request, 'equal.html',context)
 
 def target(request):
