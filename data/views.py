@@ -23,6 +23,12 @@ def mapping(request):
     context['mapping'] = mapping 
     return render(request, 'mapping.html',context)
 
+def equal(request):
+    context = {}
+    DOM = models.Mapping.objects.generate_DOM()
+    context['DOM'] = DOM 
+    return render(request, 'equal.html',context)
+
 def target(request):
     return render(request, 'target.html')
 

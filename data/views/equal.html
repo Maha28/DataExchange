@@ -1,0 +1,14 @@
+{%extends "base.html"%}
+{%block title%}Equal{%endblock%}
+{%block content%}
+    <header><h2>View DOM</h2></header>
+	<div class="viewTable">
+    	<h3>DOM</h3>
+    	<p>	DOM = (
+    	{% for entry in source1 %}
+    		{{entry.DOM}} ,
+    	{% endfor %}
+    	)	
+    	</p>
+    </div>
+{%endblock%}

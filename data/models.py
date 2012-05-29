@@ -94,7 +94,8 @@ class DOM:
             self.DOM.append(mapping_element.S)
             self.DOM.append(mapping_element.T)
         #Remove duplicates    
-        DOM = list(set(DOM))    
+        self.DOM = list(set(self.DOM))    
+        return self.DOM
         
 class EQUAL:
     pass
