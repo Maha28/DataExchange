@@ -8,8 +8,8 @@ class SourceManager(models.Manager):
         i = 0
         while i<self.MAX_RANDOM_ENTRIES:
             source1 = Source1(A=source_generator(2),B=source_generator(2))
-            source2 = Source2(C=source_generator(2),D=source_generator(2))
-            source3 = Source3(E=source_generator(2),F=source_generator(2))
+            source2 = Source2(A=source_generator(2),B=source_generator(2))
+            source3 = Source3(A=source_generator(2),B=source_generator(2))
             source1.save()
             source2.save()
             source3.save()
@@ -36,13 +36,13 @@ class Source1(models.Model):
     
 class Source2(models.Model):
     objects = SourceManager()
-    C = models.CharField(max_length=5)
-    D = models.CharField(max_length=5)   
+    A = models.CharField(max_length=5)
+    B = models.CharField(max_length=5)   
     
 class Source3(models.Model):
     objects = SourceManager()
-    E = models.CharField(max_length=5)
-    F = models.CharField(max_length=5)       
+    A = models.CharField(max_length=5)
+    B = models.CharField(max_length=5)       
 
 class MappingManager(models.Manager):
     MAX_RANDOM_ENTRIES = 10
@@ -66,16 +66,34 @@ class Mapping(models.Model):
     T = models.CharField(max_length=5)      
     
 class Target1(models.Model):
-    A = models.CharField(max_length=5)
-    B = models.CharField(max_length=5)      
+    X = models.CharField(max_length=5)
+    Y = models.CharField(max_length=5)      
     
 class Target2(models.Model):
-    C = models.CharField(max_length=5)
-    D = models.CharField(max_length=5)     
+    X = models.CharField(max_length=5)
+    Y = models.CharField(max_length=5)     
     
 def source_generator(size=6, chars=string.ascii_uppercase + string.digits):  
     return ''.join(random.choice(chars) for x in range(size)) 
 
 def target_generator(size=6, chars=string.digits):  
     return '_'.join(random.choice(chars) for x in range(size)) 
+
+
+class DOM:
+    DOM = models.CharField(max_length=5)
+    
+    def generate_DOM(self, source, mapping):
+        DOM = ()
+        for source_element in source.objects.all():
+            DOM.append(source_element.A)
+            DOM.append(source_element.B)
+        for mapping_element in mapping.objects.all():
+            DOM.append(mapping_element.S)
+            DOM.append(mapping_element.T)
+        #Remove duplicates    
+        DOM = list(set(DOM))    
+        
+class EQUAL:
+    pass
           
