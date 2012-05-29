@@ -102,19 +102,35 @@ class EqualManager(models.Manager):
             Equal(I=dom_element, J=dom_element)
             Equal.save()
     def rule_9(self):
-        pass
+        new_equal = list()
+        for equal_element in Equal.objects.all():
+            new_equal_element = Equal (I=equal_element.J, J=equal_element.I)
+            new_equal.append(new_equal_element)   
+        self.make_new_equal(new_equal) 
+            
     def rule_10(self):
         pass
+    
     def rule_11(self):
         pass
-    def rule_12(self):
-        pass                
     
+    def rule_12(self):
+        pass         
+        
+    def make_new_equal(self,new_equal):
+        Equal.objects.all().delete()
+        for new_equal_element in new_equal:
+            new_equal_element.save()
+        
+    def not_exausted(self):
+        pass
+        
     def generate_equal(self):
-        rule_8()
-        rule_9()
-        rule_10()
-        rule_11()
+        while not_exausted():
+            rule_8()
+            rule_9()
+            rule_10()
+            rule_11()
         
     def get_equal(self):
         return Equal.objects.all()       
