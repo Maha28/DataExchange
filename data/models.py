@@ -109,16 +109,29 @@ class EqualManager(models.Manager):
         self.make_new_equal(new_equal) 
             
     def rule_10(self):
-        pass
+        new_equal = list()
+        for equal_element in Equal.objects.all():
+            if equal.element.J is equal_element.I:
+                new_equal_element = Equal (I=equal_element.I, J=equal_element.J)
+                new_equal.append(new_equal_element)   
+        self.make_new_equal(new_equal) 
     
     def rule_11(self):
-        pass
+        new_equal = list()
+        for mapping_element in Mapping.objects.all():
+            new_equal_element = Equal (I=mapping_element.S, J=mapping_element.T)
+            new_equal.append(new_equal_element) 
+        self.make_new_equal(new_equal)      
     
     def rule_12(self):
-        pass         
+        new_equal = list()
+        for mapping_element in Mapping.objects.all():
+            new_equal_element = Equal (I=mapping_element.T, J=mapping_element.S)
+            new_equal.append(new_equal_element) 
+        self.make_new_equal(new_equal)       
         
     def make_new_equal(self,new_equal):
-        Equal.objects.all().delete()
+        #Equal.objects.all().delete()
         for new_equal_element in new_equal:
             new_equal_element.save()
         
