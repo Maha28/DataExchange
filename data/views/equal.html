@@ -3,10 +3,9 @@
 {%block content%}
     <header><h2>View DOM</h2></header>
 	<div class="viewTable">
-    	<h3>DOM</h3>
     	<p>	DOM = (
-    	{% for entry in source1 %}
-    		{{entry.DOM}} ,
+    	{% for entry in dom_elements %}
+    		{{entry}} ,
     	{% endfor %}
     	)	
     	</p>
