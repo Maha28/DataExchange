@@ -25,9 +25,10 @@ def mapping(request):
 
 def equal(request):
     context = {}
-    Dom = models.Dom() 
-    Dom.generate(models.Source1,models.Mapping)
-    context['dom_elements'] = Dom.get_elements() 
+    equal = models.Equal()
+    equal.objects.generate_equal()
+    context['dom_elements'] = dom.get_elements() 
+    context['equal_elements'] = dom.get_elements() 
     return render(request, 'equal.html',context)
 
 def target(request):
@@ -55,3 +56,4 @@ def clear_mapping(request):
     models.Mapping.objects.clear_mapping()
     messages.success(request, "You have successfully cleared the mapping tables")
     return HttpResponseRedirect(reverse('database'))  
+

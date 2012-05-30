@@ -99,57 +99,44 @@ class Dom:
 class EqualManager(models.Manager):
     def rule_8(self):
         for dom_element in Dom.get_elements():
-            Equal(I=dom_element, J=dom_element)
-            Equal.save()
+            new_equal = Equal(I=dom_element, J=dom_element)
+            new_equal.save()
+            
     def rule_9(self):
-        new_equal = list()
         for equal_element in Equal.objects.all():
-            new_equal_element = Equal (I=equal_element.J, J=equal_element.I)
-            new_equal.append(new_equal_element)   
-        self.make_new_equal(new_equal) 
+            new_equal = Equal (I=equal_element.J, J=equal_element.I)
+            new_equal.save()  
             
     def rule_10(self):
-        new_equal = list()
         for equal_element in Equal.objects.all():
             if equal.element.J is equal_element.I:
-                new_equal_element = Equal (I=equal_element.I, J=equal_element.J)
-                new_equal.append(new_equal_element)   
-        self.make_new_equal(new_equal) 
+                new_equal = Equal (I=equal_element.I, J=equal_element.J)
+                new_equal.save()       
     
     def rule_11(self):
-        new_equal = list()
         for mapping_element in Mapping.objects.all():
-            new_equal_element = Equal (I=mapping_element.S, J=mapping_element.T)
-            new_equal.append(new_equal_element) 
-        self.make_new_equal(new_equal)      
+            new_equal = Equal (I=mapping_element.S, J=mapping_element.T)
+            new_equal.save()   
     
     def rule_12(self):
-        new_equal = list()
         for mapping_element in Mapping.objects.all():
-            new_equal_element = Equal (I=mapping_element.T, J=mapping_element.S)
-            new_equal.append(new_equal_element) 
-        self.make_new_equal(new_equal)       
-        
-    def make_new_equal(self,new_equal):
-        #Equal.objects.all().delete()
-        for new_equal_element in new_equal:
-            new_equal_element.save()
+            new_equal = Equal (I=mapping_element.T, J=mapping_element.S)
+            new_equal.save()  
         
     def not_exausted(self):
-        pass
+        return False
         
     def generate_equal(self):
-        while not_exausted():
-            rule_8()
-            rule_9()
-            rule_10()
-            rule_11()
+        self.rule_8()
+        self.rule_9()
+        self.rule_10()
+        self.rule_11()
         
-    def get_equal(self):
+    def get_elements(self):
         return Equal.objects.all()       
         
 class Equal:
-    objects = SourceManager()
+    objects = EqualManager()
     I = models.CharField(max_length=5)
     J = models.CharField(max_length=5)
     

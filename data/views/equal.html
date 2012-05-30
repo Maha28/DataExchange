@@ -1,8 +1,8 @@
 {%extends "base.html"%}
 {%block title%}Equal{%endblock%}
 {%block content%}
-    <header><h2>View DOM</h2></header>
 	<div class="viewTable">
+	    <header><h2>DOM</h2></header>
     	<p>	DOM = (
     	{% for entry in dom_elements %}
     		{{entry}} ,
@@ -10,4 +10,19 @@
     	)	
     	</p>
     </div>
+	<div class="viewTable">
+    	<h2>Equal</h2>
+    	<table>
+    		<tr>
+	    		<th>I</th>
+	    		<th>J</th>
+    		</tr>
+    	{% for entry in equal_elements %}
+			<tr>
+				<td>{{entry.I}}</td>
+				<td>{{entry.J}}</td>
+			</tr>
+    	{% endfor %}	    		
+    	</table>
+    </div>   
 {%endblock%}
