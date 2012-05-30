@@ -61,17 +61,11 @@ class Target2(models.Model):
     X = models.CharField(max_length=5)
     Y = models.CharField(max_length=5)     
     
-def source_generator(size=6, chars=string.ascii_uppercase + string.digits):  
-    return ''.join(random.choice(chars) for x in range(size)) 
 
-def target_generator(size=6, chars=string.digits):  
-    return '_'.join(random.choice(chars) for x in range(size)) 
-
-
-class Dom:
+class Dom(models.Model):
     dom = list()
     
-    def generate(self, source, mapping):
+    def generate_dom(self, source, mapping):
         for source_element in source.objects.all():
             self.dom.append(source_element.A)
             self.dom.append(source_element.B)
@@ -85,9 +79,15 @@ class Dom:
         return self.dom
         
 class EqualManager(models.Manager):
+    dom = models.OneToOneField(Dom,primary_key=True) 
+    
+    def get_dom(self):
+        return self.dom.get_dom()
+    
     def rule_8(self):
-        for dom_element in Dom.get_elements():
-            new_equal = Equal(I=dom_element, J=dom_element)
+        self.dom.generate_dom()
+        for dom in self.get_dom():
+            new_equal = Equal(I=dom, J=dom)
             new_equal.save()
             
     def rule_9(self):
@@ -123,18 +123,17 @@ class EqualManager(models.Manager):
     def clear_equal(self):
         Equal.objects.all().delete()       
         
-class Equal:
+class Equal(models.Model):
     objects = EqualManager()
-    dom = models.OneToOneField(Dom)
     I = models.CharField(max_length=5)
     J = models.CharField(max_length=5)
     
-    def __init__(source, mapping):
-        dom.generate(source,mapping)
-        return dom.get_elements()
-    
-    def get_dom(self):
-        return self.dom.get_dom()
         
+#Helpers        
+def source_generator(size=6, chars=string.ascii_uppercase + string.digits):  
+    return ''.join(random.choice(chars) for x in range(size)) 
+
+def target_generator(size=6, chars=string.digits):  
+    return '_'.join(random.choice(chars) for x in range(size)) 
 
           
