@@ -21,10 +21,8 @@ def mapping(request):
 
 def equal(request):
     context = {}
-    equal = models.Equal(models.Source1, models.Mapping)
-    equal.objects.generate_equal()
-    context['dom'] = equal.get_dom()
-    context['equal'] = equal.objects.all()
+    context['dom'] = models.Equal.objects.get_dom()
+    context['equal'] = models.Equal.objects.all()
     return render(request, 'equal.html',context)
 
 def target(request):
@@ -54,7 +52,7 @@ def clear_mapping(request):
     return HttpResponseRedirect(reverse('database'))  
 
 def generate_equal(request):
-    models.Equal.objects.generate_equal()
+    models.Equal.objects.generate_equal(models.Source1,models.Mapping)
     messages.success(request, "You have successfully generated Equal")
     return HttpResponseRedirect(reverse('database'))    
 

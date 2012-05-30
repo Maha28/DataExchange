@@ -79,13 +79,12 @@ class Dom(models.Model):
         return self.dom
         
 class EqualManager(models.Manager):
-    dom = models.OneToOneField(Dom,primary_key=True) 
+    dom = Dom() 
     
     def get_dom(self):
         return self.dom.get_dom()
     
     def rule_8(self):
-        self.dom.generate_dom()
         for dom in self.get_dom():
             new_equal = Equal(I=dom, J=dom)
             new_equal.save()
@@ -97,7 +96,7 @@ class EqualManager(models.Manager):
             
     def rule_10(self):
         for equal_element in Equal.objects.all():
-            if equal.element.J is equal_element.I:
+            if equal_element.J is equal_element.I:
                 new_equal = Equal (I=equal_element.I, J=equal_element.J)
                 new_equal.save()       
     
@@ -114,7 +113,8 @@ class EqualManager(models.Manager):
     def not_exausted(self):
         return False
         
-    def generate_equal(self):
+    def generate_equal(self,source, mapping):
+        self.dom.generate_dom(source, mapping)
         self.rule_8()
         self.rule_9()
         self.rule_10()
