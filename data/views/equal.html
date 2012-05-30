@@ -4,7 +4,7 @@
 	<div class="viewTable">
 	    <header><h2>DOM</h2></header>
     	<p>	DOM = (
-    	{% for entry in dom_elements %}
+    	{% for entry in dom %}
     		{{entry}} ,
     	{% endfor %}
     	)	
@@ -17,7 +17,7 @@
 	    		<th>I</th>
 	    		<th>J</th>
     		</tr>
-    	{% for entry in equal_elements %}
+    	{% for entry in equal %}
 			<tr>
 				<td>{{entry.I}}</td>
 				<td>{{entry.J}}</td>

@@ -13,16 +13,7 @@ class SourceManager(models.Manager):
             source1.save()
             source2.save()
             source3.save()
-            i = i+1
-    
-    def get_source1(self):
-        return Source1.objects.all() 
-      
-    def get_source2(self):
-        return Source2.objects.all() 
-    
-    def get_source3(self):
-        return Source3.objects.all()         
+            i = i+1      
     
     def clear_source(self):
         Source1.objects.all().delete()
@@ -54,9 +45,6 @@ class MappingManager(models.Manager):
             mapping.save()
             i = i+1
     
-    def get_mapping(self):
-        return Mapping.objects.all()   
-    
     def clear_mapping(self):
         Mapping.objects.all().delete()
 
@@ -81,20 +69,20 @@ def target_generator(size=6, chars=string.digits):
 
 
 class Dom:
-    dom_elements = list()
+    dom = list()
     
     def generate(self, source, mapping):
         for source_element in source.objects.all():
-            self.dom_elements.append(source_element.A)
-            self.dom_elements.append(source_element.B)
+            self.dom.append(source_element.A)
+            self.dom.append(source_element.B)
         for mapping_element in mapping.objects.all():
-            self.dom_elements.append(mapping_element.S)
-            self.dom_elements.append(mapping_element.T)
+            self.dom.append(mapping_element.S)
+            self.dom.append(mapping_element.T)
         #Remove duplicates    
-        self.dom_elements = list(set(self.dom_elements))    
+        self.dom = list(set(self.dom))    
         
-    def get_elements(self):
-        return self.dom_elements
+    def get_dom(self):
+        return self.dom
         
 class EqualManager(models.Manager):
     def rule_8(self):
@@ -131,14 +119,22 @@ class EqualManager(models.Manager):
         self.rule_9()
         self.rule_10()
         self.rule_11()
-        
-    def get_elements(self):
-        return Equal.objects.all()       
+      
+    def clear_equal(self):
+        Equal.objects.all().delete()       
         
 class Equal:
     objects = EqualManager()
+    dom = models.OneToOneField(Dom)
     I = models.CharField(max_length=5)
     J = models.CharField(max_length=5)
     
+    def __init__(source, mapping):
+        dom.generate(source,mapping)
+        return dom.get_elements()
+    
+    def get_dom(self):
+        return self.dom.get_dom()
+        
 
           

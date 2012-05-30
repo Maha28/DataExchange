@@ -9,26 +9,22 @@ def home(request):
 
 def source(request):
     context = {}
-    source1 = models.Source1.objects.get_source1()
-    source2 = models.Source2.objects.get_source2()
-    source3 = models.Source3.objects.get_source3()
-    context['source1'] = source1
-    context['source2'] = source2  
-    context['source3'] = source3  
+    context['source1'] = models.Source1.objects.all()
+    context['source2'] = models.Source2.objects.all()  
+    context['source3'] = models.Source3.objects.all()  
     return render(request, 'source.html', context)
 
 def mapping(request):
     context = {}
-    mapping = models.Mapping.objects.get_mapping()
-    context['mapping'] = mapping 
+    context['mapping'] = models.Mapping.objects.all() 
     return render(request, 'mapping.html',context)
 
 def equal(request):
     context = {}
-    equal = models.Equal()
+    equal = models.Equal(models.Source1, models.Mapping)
     equal.objects.generate_equal()
-    context['dom_elements'] = dom.get_elements() 
-    context['equal_elements'] = dom.get_elements() 
+    context['dom'] = equal.get_dom()
+    context['equal'] = equal.objects.all()
     return render(request, 'equal.html',context)
 
 def target(request):
@@ -55,5 +51,15 @@ def populate_mapping(request):
 def clear_mapping(request):
     models.Mapping.objects.clear_mapping()
     messages.success(request, "You have successfully cleared the mapping tables")
+    return HttpResponseRedirect(reverse('database'))  
+
+def generate_equal(request):
+    models.Equal.objects.generate_equal()
+    messages.success(request, "You have successfully generated Equal")
+    return HttpResponseRedirect(reverse('database'))    
+
+def clear_equal(request):
+    models.Equal.objects.clear_equal()
+    messages.success(request, "You have successfully cleared Equal")
     return HttpResponseRedirect(reverse('database'))  
 
