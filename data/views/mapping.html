@@ -1,20 +1,27 @@
 {%extends "base.html"%}
 {%block title%}Mapping{%endblock%}
 {%block content%}
-    <header><h2>View Mapping</h2></header>
-	<div class="viewTable">
-    	<h3>Mapping</h3>
-    	<table>
-    		<tr>
-	    		<th>S</th>
-	    		<th>T</th>
-    		</tr>
-    	{% for entry in mapping %}
-			<tr>
-				<td>{{entry.S}}</td>
-				<td>{{entry.T}}</td>
-			</tr>
-    	{% endfor %}	    		
-    	</table>
-    </div>   
+    <section id="dbSections">
+   <header><h2>Mapping db operations</h2></header>
+  		<a href="clear_mapping">Clear Mapping</a> 
+  		<a href="populate_mapping">Populate Mapping</a> 	
+    </section>  
+	<section id="view">
+	    <header><h2>View Mapping</h2></header>
+		<div class="viewTable">
+	    	<h3>Mapping</h3>
+	    	<table>
+	    		<tr>
+		    		<th>S</th>
+		    		<th>T</th>
+	    		</tr>
+	    	{% for entry in mapping %}
+				<tr>
+					<td>{{entry.S}}</td>
+					<td>{{entry.T}}</td>
+				</tr>
+	    	{% endfor %}	    		
+	    	</table>
+	    </div>   
+    </section>
 {%endblock%}

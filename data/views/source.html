@@ -1,50 +1,57 @@
 {%extends "base.html"%}
 {%block title%}Source{%endblock%}
 {%block content%}
+    <section id="dbSections">
+	    <header><h2>Source db operations</h2></header>
+    		<a href="clear_source">Clear Source</a> 
+    		<a href="populate_source">Populate Source</a>    
+	</section>
+	<section id="view">
     <header><h2>View Source</h2></header>
-	<div class="viewTable">
-    	<h3>Source1</h3>
-    	<table>
-    		<tr>
-	    		<th>A</th>
-	    		<th>B</th>
-    		</tr>    	
-    	{% for entry in source1 %}
-			<tr>
-				<td>{{entry.A}}</td>
-				<td>{{entry.B}}</td>
-			</tr>
-    	{% endfor %}	
-    	</table>
-    </div>
-	<div class="viewTable">
-    	<h3>Source2</h3>
-    	<table>
-    		<tr>
-	    		<th>A</th>
-	    		<th>B</th>
-    		</tr>
-     	{% for entry in source2 %}
-			<tr>
-				<td>{{entry.A}}</td>
-				<td>{{entry.B}}</td>
-			</tr>
-    	{% endfor %}	   		
-    	</table>    	
-    </div>    
-	<div class="viewTable">
-    	<h3>Source3</h3>
-    	<table>
-    		<tr>
-	    		<th>A</th>
-	    		<th>B</th>
-    		</tr>
-    	{% for entry in source3 %}
-			<tr>
-				<td>{{entry.A}}</td>
-				<td>{{entry.B}}</td>
-			</tr>
-    	{% endfor %}	    		
-    	</table>    	
-    </div>   
+		<div class="viewTable">
+	    	<h3>Source1</h3>
+	    	<table>
+	    		<tr>
+		    		<th>A</th>
+		    		<th>B</th>
+	    		</tr>    	
+	    	{% for entry in source1 %}
+				<tr>
+					<td>{{entry.A}}</td>
+					<td>{{entry.B}}</td>
+				</tr>
+	    	{% endfor %}	
+	    	</table>
+	    </div>
+		<div class="viewTable">
+	    	<h3>Source2</h3>
+	    	<table>
+	    		<tr>
+		    		<th>A</th>
+		    		<th>B</th>
+	    		</tr>
+	     	{% for entry in source2 %}
+				<tr>
+					<td>{{entry.A}}</td>
+					<td>{{entry.B}}</td>
+				</tr>
+	    	{% endfor %}	   		
+	    	</table>    	
+	    </div>    
+		<div class="viewTable">
+	    	<h3>Source3</h3>
+	    	<table>
+	    		<tr>
+		    		<th>A</th>
+		    		<th>B</th>
+	    		</tr>
+	    	{% for entry in source3 %}
+				<tr>
+					<td>{{entry.A}}</td>
+					<td>{{entry.B}}</td>
+				</tr>
+	    	{% endfor %}	    		
+	    	</table>    	
+	    </div>
+    </section>   
 {%endblock%}
