@@ -149,8 +149,8 @@ class EqualManager(models.Manager):
         
 class Equal(models.Model):
     objects = EqualManager()
-    I = models.CharField(max_length=5)
-    J = models.CharField(max_length=5)
+    I = models.CharField(max_length=5, primary_key=True)
+    J = models.CharField(max_length=5, primary_key=True)
     
         
 #Helpers        
