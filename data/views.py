@@ -68,7 +68,8 @@ def clear_all(request):
     messages.success(request, "You have successfully cleared everything")
     return HttpResponseRedirect(reverse('database'))  
 
-#The following methods are temporary copied to accomplish a small task
+#The following methods are temporary copied to accomplish a small task.
+#TODO: Use arguments to combine these views with the old ones
 def populate_source_from_source(request):
     models.Source1.objects.populate_source()
     messages.success(request, "You have successfully populated the source tables")

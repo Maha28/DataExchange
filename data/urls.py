@@ -21,13 +21,13 @@ urlpatterns = patterns('',
     
     #Mapping
     url(r'^mapping/$', 'data.views.mapping', name='mapping'),
-    url(r'^database/populate_mapping/$', 'data.views.populate_mapping_from_mapping', name='populate_mapping_from_mapping'),
-    url(r'^database/clear_mapping/$', 'data.views.clear_mapping_from_mapping', name='clear_mapping_from_mapping'),  
+    url(r'^mapping/populate_mapping/$', 'data.views.populate_mapping_from_mapping', name='populate_mapping_from_mapping'),
+    url(r'^mapping/clear_mapping/$', 'data.views.clear_mapping_from_mapping', name='clear_mapping_from_mapping'),  
     
     #Equal    
     url(r'^equal/$', 'data.views.equal', name='equal'),    
-    url(r'^database/generate_equal/$', 'data.views.generate_equal_from_equal', name='generate_equal_from_equal'),
-    url(r'^database/clear_equal/$', 'data.views.clear_equal_from_equal', name='clear_equal_from_equal'),     
+    url(r'^equal/generate_equal/$', 'data.views.generate_equal_from_equal', name='generate_equal_from_equal'),
+    url(r'^equal/clear_equal/$', 'data.views.clear_equal_from_equal', name='clear_equal_from_equal'),     
     #Target   
     url(r'^target/$', 'data.views.target', name='target'),
        
