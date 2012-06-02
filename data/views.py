@@ -34,7 +34,7 @@ def database(request):
 def populate_source(request):
     models.Source1.objects.populate_source()
     messages.success(request, "You have successfully populated the source tables")
-    return HttpResponseRedirect(reverse('database'))    
+    return HttpResponseRedirect(reverse('database'))  
 
 def clear_source(request):
     models.Source1.objects.clear_source()
@@ -62,8 +62,39 @@ def clear_equal(request):
     return HttpResponseRedirect(reverse('database'))  
 
 def clear_all(request):
-    models.Equal.objects.clear_source()
-    models.Equal.objects.clear_mapping()
+    models.Source1.objects.clear_source()
+    models.Mapping.objects.clear_mapping()
     models.Equal.objects.clear_equal()
     messages.success(request, "You have successfully cleared everything")
     return HttpResponseRedirect(reverse('database'))  
+
+#The following methods are temporary copied to accomplish a small task
+def populate_source_from_source(request):
+    models.Source1.objects.populate_source()
+    messages.success(request, "You have successfully populated the source tables")
+    return HttpResponseRedirect(reverse('source'))    
+
+def clear_source_from_source(request):
+    models.Source1.objects.clear_source()
+    messages.success(request, "You have successfully cleared the source tables")
+    return HttpResponseRedirect(reverse('source')) 
+
+def populate_mapping_from_mapping(request):
+    models.Mapping.objects.populate_mapping()
+    messages.success(request, "You have successfully populated the mapping tables")
+    return HttpResponseRedirect(reverse('mapping'))    
+
+def clear_mapping_from_mapping(request):
+    models.Mapping.objects.clear_mapping()
+    messages.success(request, "You have successfully cleared the mapping tables")
+    return HttpResponseRedirect(reverse('mapping'))  
+
+def generate_equal_from_equal(request):
+    models.Equal.objects.generate_equal(models.Source1,models.Mapping)
+    messages.success(request, "You have successfully generated Equal")
+    return HttpResponseRedirect(reverse('equal'))   
+
+def clear_equal_from_equal(request):
+    models.Equal.objects.clear_equal()
+    messages.success(request, "You have successfully cleared Equal")
+    return HttpResponseRedirect(reverse('equal'))  
