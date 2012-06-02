@@ -92,39 +92,21 @@ class EqualManager(models.Manager):
     def rule_9(self):
         for equal_element in Equal.objects.all():
             new_equal = Equal (I=equal_element.J, J=equal_element.I)
-            new_equal.save()  
-            
-#    def rule_10(self):
-#        for equal_element in Equal.objects.all():
-#            if equal_element.J is equal_element.I:
-#                new_equal = Equal (I=equal_element.I, J=equal_element.J)
-#                new_equal.save()       
+            new_equal.save()       
                 
     def rule_10(self):
         for equal_element1 in Equal.objects.all():            
             for equal_element2 in Equal.objects.all():            
                 if equal_element1.J is equal_element2.I:                
                     new_equal = Equal (I=equal_element1.I, J=equal_element2.J)                
-                    new_equal.save()                 
-                
-    
-#    def rule_11(self):
-#        for mapping_element in Mapping.objects.all():
-#            new_equal = Equal (I=mapping_element.S, J=mapping_element.T)
-#            new_equal.save()   
-            
-            
+                    new_equal.save()                  
+             
     def rule_11(self):
         for mapping_element1 in Mapping.objects.all():            
             for mapping_element2 in Mapping.objects.all():
                 if mapping_element1.T is mapping_element2.T:          
                     new_equal = Equal (I=mapping_element1.S, J=mapping_element2.S)            
                     new_equal.save()        
-    
-#    def rule_12(self):
-#        for mapping_element in Mapping.objects.all():
-#            new_equal = Equal (I=mapping_element.T, J=mapping_element.S)
-#            new_equal.save()  
             
     def rule_12(self):
         for mapping_element1 in Mapping.objects.all():            

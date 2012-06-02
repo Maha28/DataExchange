@@ -61,3 +61,9 @@ def clear_equal(request):
     messages.success(request, "You have successfully cleared Equal")
     return HttpResponseRedirect(reverse('database'))  
 
+def clear_all(request):
+    models.Equal.objects.clear_source()
+    models.Equal.objects.clear_mapping()
+    models.Equal.objects.clear_equal()
+    messages.success(request, "You have successfully cleared everything")
+    return HttpResponseRedirect(reverse('database'))  
