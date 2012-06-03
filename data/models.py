@@ -1,5 +1,6 @@
 import os, random, string
 from django.db import models
+import pdb;
 
 class SourceManager(models.Manager):
     MAX_RANDOM_ENTRIES = 10
@@ -43,9 +44,8 @@ class MappingManager(models.Manager):
         T = []
         for i in range(0,self.MAX_RANDOM_SOURCE):
             S.append(source_generator(2))
-            T.append(target_generator(2)) 
             if i < self.MAX_RANDOM_TARGET: T.append(target_generator(2)) 
-            else: T.append(S[i])
+            else: T.append(T[int(random.uniform(0,self.MAX_RANDOM_TARGET))])
             mapping = Mapping(S=S[i],T=T[i])
             mapping.save()
     
@@ -105,21 +105,22 @@ class EqualManager(models.Manager):
     def rule_10(self):
         for equal_element1 in Equal.objects.all():            
             for equal_element2 in Equal.objects.all():            
-                if equal_element1.J is equal_element2.I:                
+                if equal_element1.J == equal_element2.I:                
                     new_equal = Equal (I=equal_element1.I, J=equal_element2.J)                
                     new_equal.save()                  
              
     def rule_11(self):
         for mapping_element1 in Mapping.objects.all():            
             for mapping_element2 in Mapping.objects.all():
-                if mapping_element1.T is mapping_element2.T:          
+                if mapping_element1.T == mapping_element2.T: 
+                    pdb.set_trace()         
                     new_equal = Equal (I=mapping_element1.S, J=mapping_element2.S)            
                     new_equal.save()        
             
     def rule_12(self):
         for mapping_element1 in Mapping.objects.all():            
             for mapping_element2 in Mapping.objects.all(): 
-                if mapping_element1.S is mapping_element2.S:  
+                if mapping_element1.S == mapping_element2.S:  
                     new_equal = Equal (I=mapping_element1.T, J=mapping_element2.T)            
                     new_equal.save()                  
         
