@@ -22,36 +22,40 @@ class SourceManager(models.Manager):
 
 class Source1(models.Model):    
     objects = SourceManager()
-    A = models.CharField(max_length=5)
-    B = models.CharField(max_length=5)
+    A = models.CharField(max_length=5,primary_key=True)
+    B = models.CharField(max_length=5,primary_key=True)
     
 class Source2(models.Model):
     objects = SourceManager()
-    A = models.CharField(max_length=5)
-    B = models.CharField(max_length=5)   
+    A = models.CharField(max_length=5,primary_key=True)
+    B = models.CharField(max_length=5,primary_key=True)   
     
 class Source3(models.Model):
     objects = SourceManager()
-    A = models.CharField(max_length=5)
-    B = models.CharField(max_length=5)       
+    A = models.CharField(max_length=5,primary_key=True)
+    B = models.CharField(max_length=5,primary_key=True)       
 
 class MappingManager(models.Manager):
-    MAX_RANDOM_ENTRIES = 10
-    
+    MAX_RANDOM_SOURCE = 10
+    MAX_RANDOM_TARGET = 5    
     def populate_mapping(self):
-        i = 0
-        while i<self.MAX_RANDOM_ENTRIES:
-            mapping = Mapping(S=source_generator(2),T=target_generator(2))
+        S = []
+        T = []
+        for i in range(0,self.MAX_RANDOM_SOURCE):
+            S.append(source_generator(2))
+            T.append(target_generator(2)) 
+            if i < self.MAX_RANDOM_TARGET: T.append(target_generator(2)) 
+            else: T.append(S[i])
+            mapping = Mapping(S=S[i],T=T[i])
             mapping.save()
-            i = i+1
     
     def clear_mapping(self):
         Mapping.objects.all().delete()
 
 class Mapping(models.Model):
     objects = MappingManager()
-    S = models.CharField(max_length=5)
-    T = models.CharField(max_length=5)      
+    S = models.CharField(max_length=5,primary_key=True)
+    T = models.CharField(max_length=5,primary_key=True)      
     
 class Target1(models.Model):
     X = models.CharField(max_length=5)
@@ -77,6 +81,9 @@ class Dom(models.Model):
         
     def get_dom(self):
         return self.dom
+    
+    def clear_dom(self):
+        self.dom = list()
         
 class EqualManager(models.Manager):
     dom = Dom() 
@@ -114,7 +121,7 @@ class EqualManager(models.Manager):
             for mapping_element2 in Mapping.objects.all(): 
                 if mapping_element1.S is mapping_element2.S:  
                     new_equal = Equal (I=mapping_element1.T, J=mapping_element2.T)            
-                    new_equal.save()
+                    new_equal.save()                  
         
     def not_exausted(self, new_objects_count):
         if self.current_objects_count is new_objects_count:
@@ -133,7 +140,8 @@ class EqualManager(models.Manager):
             self.rule_12()
             
     def clear_equal(self):
-        Equal.objects.all().delete()       
+        Equal.objects.all().delete() 
+        self.dom.clear_dom()     
         
 class Equal(models.Model):
     objects = EqualManager()
