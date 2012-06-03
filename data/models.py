@@ -23,18 +23,18 @@ class SourceManager(models.Manager):
 
 class Source1(models.Model):    
     objects = SourceManager()
-    A = models.CharField(max_length=5,primary_key=True)
-    B = models.CharField(max_length=5,primary_key=True)
+    A = models.CharField(max_length=5)
+    B = models.CharField(max_length=5)
     
 class Source2(models.Model):
     objects = SourceManager()
-    A = models.CharField(max_length=5,primary_key=True)
-    B = models.CharField(max_length=5,primary_key=True)   
+    A = models.CharField(max_length=5)
+    B = models.CharField(max_length=5)   
     
 class Source3(models.Model):
     objects = SourceManager()
-    A = models.CharField(max_length=5,primary_key=True)
-    B = models.CharField(max_length=5,primary_key=True)       
+    A = models.CharField(max_length=5)
+    B = models.CharField(max_length=5)       
 
 class MappingManager(models.Manager):
     MAX_RANDOM_SOURCE = 10
@@ -54,8 +54,8 @@ class MappingManager(models.Manager):
 
 class Mapping(models.Model):
     objects = MappingManager()
-    S = models.CharField(max_length=5,primary_key=True)
-    T = models.CharField(max_length=5,primary_key=True)      
+    S = models.CharField(max_length=5)
+    T = models.CharField(max_length=5)      
     
 class Target1(models.Model):
     X = models.CharField(max_length=5)
@@ -99,29 +99,28 @@ class EqualManager(models.Manager):
             
     def rule_9(self):
         for equal_element in Equal.objects.all():
-            new_equal = Equal (I=equal_element.J, J=equal_element.I)
+            new_equal = Equal (IJ=equal_element.J+equal_element.I,I=equal_element.J, J=equal_element.I)
             new_equal.save()       
                 
     def rule_10(self):
         for equal_element1 in Equal.objects.all():            
             for equal_element2 in Equal.objects.all():            
                 if equal_element1.J == equal_element2.I:                
-                    new_equal = Equal (I=equal_element1.I, J=equal_element2.J)                
+                    new_equal = Equal (IJ=equal_element1.I+equal_element2.J,I=equal_element1.I, J=equal_element2.J)                
                     new_equal.save()                  
              
     def rule_11(self):
         for mapping_element1 in Mapping.objects.all():            
             for mapping_element2 in Mapping.objects.all():
-                if mapping_element1.T == mapping_element2.T: 
-                    pdb.set_trace()         
-                    new_equal = Equal (I=mapping_element1.S, J=mapping_element2.S)            
+                if mapping_element1.T == mapping_element2.T:         
+                    new_equal = Equal (IJ=mapping_element1.S+mapping_element2.S,I=mapping_element1.S, J=mapping_element2.S)            
                     new_equal.save()        
             
     def rule_12(self):
         for mapping_element1 in Mapping.objects.all():            
             for mapping_element2 in Mapping.objects.all(): 
                 if mapping_element1.S == mapping_element2.S:  
-                    new_equal = Equal (I=mapping_element1.T, J=mapping_element2.T)            
+                    new_equal = Equal (IJ=mapping_element1.T+mapping_element2.T,I=mapping_element1.T, J=mapping_element2.T)            
                     new_equal.save()                  
         
     def not_exausted(self, new_objects_count):
@@ -146,8 +145,9 @@ class EqualManager(models.Manager):
         
 class Equal(models.Model):
     objects = EqualManager()
-    I = models.CharField(max_length=5, primary_key=True)
-    J = models.CharField(max_length=5, primary_key=True)
+    IJ = models.CharField(max_length=10, primary_key=True)
+    I = models.CharField(max_length=5)
+    J = models.CharField(max_length=5)
     
         
 #Helpers        
