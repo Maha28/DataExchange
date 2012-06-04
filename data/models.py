@@ -1,6 +1,6 @@
 import os, random, string
 from django.db import models
-import pdb;
+import pdb
 
 class SourceManager(models.Manager):
     MAX_RANDOM_ENTRIES = 10
@@ -94,34 +94,49 @@ class EqualManager(models.Manager):
     
     def rule_8(self):
         for dom in self.get_dom():
-            new_equal = Equal(I=dom, J=dom)
-            new_equal.save()
+            try:
+                new_equal = Equal(I=dom, J=dom)
+                new_equal.save()
+            except: 
+                continue
             
     def rule_9(self):
         for equal_element in Equal.objects.all():
-            new_equal = Equal (IJ=equal_element.J+equal_element.I,I=equal_element.J, J=equal_element.I)
-            new_equal.save()       
+            try:
+                new_equal = Equal (I=equal_element.J, J=equal_element.I)
+                new_equal.save()
+            except: 
+                continue
                 
     def rule_10(self):
         for equal_element1 in Equal.objects.all():            
             for equal_element2 in Equal.objects.all():            
-                if equal_element1.J == equal_element2.I:                
-                    new_equal = Equal (IJ=equal_element1.I+equal_element2.J,I=equal_element1.I, J=equal_element2.J)                
-                    new_equal.save()                  
+                if equal_element1.J == equal_element2.I: 
+                    try:               
+                        new_equal = Equal (I=equal_element1.I, J=equal_element2.J)                
+                        new_equal.save() 
+                    except:
+                        continue                 
              
     def rule_11(self):
         for mapping_element1 in Mapping.objects.all():            
             for mapping_element2 in Mapping.objects.all():
-                if mapping_element1.T == mapping_element2.T:         
-                    new_equal = Equal (IJ=mapping_element1.S+mapping_element2.S,I=mapping_element1.S, J=mapping_element2.S)            
-                    new_equal.save()        
+                if mapping_element1.T == mapping_element2.T: 
+                    try:      
+                        new_equal = Equal (I=mapping_element1.S, J=mapping_element2.S)            
+                        new_equal.save()
+                    except:
+                        continue        
             
     def rule_12(self):
         for mapping_element1 in Mapping.objects.all():            
             for mapping_element2 in Mapping.objects.all(): 
                 if mapping_element1.S == mapping_element2.S:  
-                    new_equal = Equal (IJ=mapping_element1.T+mapping_element2.T,I=mapping_element1.T, J=mapping_element2.T)            
-                    new_equal.save()                  
+                    try:
+                        new_equal = Equal (I=mapping_element1.T, J=mapping_element2.T)            
+                        new_equal.save()                  
+                    except:
+                        continue
         
     def not_exausted(self, new_objects_count):
         if self.current_objects_count is new_objects_count:
@@ -145,10 +160,10 @@ class EqualManager(models.Manager):
         
 class Equal(models.Model):
     objects = EqualManager()
-    IJ = models.CharField(max_length=10, primary_key=True)
     I = models.CharField(max_length=5)
     J = models.CharField(max_length=5)
-    
+    class Meta:
+       unique_together = ('I', 'J')    
         
 #Helpers        
 def source_generator(size=6, chars=string.ascii_uppercase + string.digits):  
