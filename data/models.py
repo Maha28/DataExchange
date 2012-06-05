@@ -51,6 +51,9 @@ class MappingManager(models.Manager):
     
     def clear_mapping(self):
         Mapping.objects.all().delete()
+        
+    def rule_13(self):
+        pass  
 
 class Mapping(models.Model):
     objects = MappingManager()
@@ -88,6 +91,8 @@ class Dom(models.Model):
 class EqualManager(models.Manager):
     dom = Dom() 
     current_objects_count = -1
+    source = Source1
+    mapping = Mapping
     
     def get_dom(self):
         return self.dom.get_dom()
@@ -136,7 +141,7 @@ class EqualManager(models.Manager):
                         new_equal = Equal (I=mapping_element1.T, J=mapping_element2.T)            
                         new_equal.save()                  
                     except:
-                        continue
+                        continue           
         
     def not_exausted(self, new_objects_count):
         if self.current_objects_count is new_objects_count:
@@ -145,9 +150,9 @@ class EqualManager(models.Manager):
             self.current_objects_count = new_objects_count
             return True
         
-    def generate_equal(self,source, mapping):
+    def generate_equal(self):
         while self.not_exausted(Equal.objects.all().count()):
-            self.dom.generate_dom(source, mapping)
+            self.dom.generate_dom(self.source, self.mapping)
             self.rule_8()
             self.rule_9()
             self.rule_10()

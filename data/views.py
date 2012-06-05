@@ -52,7 +52,7 @@ def clear_mapping(request):
     return HttpResponseRedirect(reverse('database'))  
 
 def generate_equal(request):
-    models.Equal.objects.generate_equal(models.Source1,models.Mapping)
+    models.Equal.objects.generate_equal()
     messages.success(request, "You have successfully generated Equal")
     return HttpResponseRedirect(reverse('database'))    
 
@@ -91,7 +91,7 @@ def clear_mapping_from_mapping(request):
     return HttpResponseRedirect(reverse('mapping'))  
 
 def generate_equal_from_equal(request):
-    models.Equal.objects.generate_equal(models.Source1,models.Mapping)
+    models.Equal.objects.generate_equal()
     messages.success(request, "You have successfully generated Equal")
     return HttpResponseRedirect(reverse('equal'))   
 
