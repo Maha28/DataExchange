@@ -25,16 +25,22 @@ class Source1(models.Model):
     objects = SourceManager()
     A = models.CharField(max_length=5)
     B = models.CharField(max_length=5)
+    class Meta:
+       unique_together = ('A', 'B')     
     
 class Source2(models.Model):
     objects = SourceManager()
     A = models.CharField(max_length=5)
     B = models.CharField(max_length=5)   
+    class Meta:
+       unique_together = ('A', 'B')     
     
 class Source3(models.Model):
     objects = SourceManager()
     A = models.CharField(max_length=5)
-    B = models.CharField(max_length=5)       
+    B = models.CharField(max_length=5)
+    class Meta:
+       unique_together = ('A', 'B')            
 
 class MappingManager(models.Manager):
     MAX_RANDOM_SOURCE = 10
@@ -123,31 +129,40 @@ class EqualManager(models.Manager):
                     except: continue                 
              
     def rule_11(self):
-        for mapping_element1 in Mapping.objects.all():            
-            for mapping_element2 in Mapping.objects.all():
+        for mapping_element1 in self.mapping.objects.all():            
+            for mapping_element2 in self.mapping.objects.all():
                 if mapping_element1.T == mapping_element2.T: 
                     try:      
                         new_equal = Equal (I=mapping_element1.S, J=mapping_element2.S)            
                         new_equal.save()
                     except: continue        
-            
-    def rule_13(self):
-        for equal_element in Equal.objects.all():
-            for mapping_element in Mapping.objects.all():
-                if mapping_element.S == equal_element.I:
-                    try:
-                        new_mapping = Mapping(S=equal_element.J, T=mapping_element.T)
-                        new_mapping.save()
-                    except: continue
     
     def rule_12(self):
-        for mapping_element1 in Mapping.objects.all():            
-            for mapping_element2 in Mapping.objects.all(): 
+        for mapping_element1 in self.mapping.objects.all():            
+            for mapping_element2 in self.mapping.objects.all(): 
                 if mapping_element1.S == mapping_element2.S:  
                     try:
                         new_equal = Equal (I=mapping_element1.T, J=mapping_element2.T)            
                         new_equal.save()                  
-                    except: continue           
+                    except: continue    
+                    
+    def rule_13(self):
+        for equal_element in Equal.objects.all():
+            for mapping_element in self.mapping.objects.all():
+                if mapping_element.S == equal_element.I :
+                    try:
+                        new_mapping = Mapping(S=equal_element.J, T=mapping_element.T)
+                        new_mapping.save()
+                    except: continue     
+                    
+    def rule_14(self):
+        for equal_element in Equal.objects.all():
+            for source_element in self.source.objects.all():
+                if source_element.A == equal_element.I:
+                    try:
+                        new_source = Source(A=equal_element.J, B=source_element.B)
+                        new_source.save()
+                    except: continue                                           
 
     def not_exausted(self, new_objects_count):
         if self.current_objects_count is new_objects_count:

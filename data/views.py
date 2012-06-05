@@ -104,3 +104,8 @@ def update_mapping_from_equal(request):
     models.Equal.objects.rule_13()
     messages.success(request, "You have successfully updated the mapping table using equal")
     return HttpResponseRedirect(reverse('equal'))  
+
+def update_source_from_equal(request):
+    models.Equal.objects.rule_14()
+    messages.success(request, "You have successfully updated the source table using equal")
+    return HttpResponseRedirect(reverse('equal')) 
