@@ -28,6 +28,8 @@ urlpatterns = patterns('',
     url(r'^equal/$', 'data.views.equal', name='equal'),    
     url(r'^equal/generate_equal/$', 'data.views.generate_equal_from_equal', name='generate_equal_from_equal'),
     url(r'^equal/clear_equal/$', 'data.views.clear_equal_from_equal', name='clear_equal_from_equal'),     
+    url(r'^equal/update_mapping/$', 'data.views.update_mapping_from_equal', name='update_mapping_from_equal'),     
+
     #Target   
     url(r'^target/$', 'data.views.target', name='target'),
        

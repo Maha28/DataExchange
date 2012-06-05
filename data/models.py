@@ -46,19 +46,20 @@ class MappingManager(models.Manager):
             S.append(source_generator(2))
             if i < self.MAX_RANDOM_TARGET: T.append(target_generator(2)) 
             else: T.append(T[int(random.uniform(0,self.MAX_RANDOM_TARGET))])
-            mapping = Mapping(S=S[i],T=T[i])
-            mapping.save()
+            try:
+                mapping = Mapping(S=S[i],T=T[i])
+                mapping.save()
+            except: continue
     
     def clear_mapping(self):
         Mapping.objects.all().delete()
-        
-    def rule_13(self):
-        pass  
 
 class Mapping(models.Model):
     objects = MappingManager()
     S = models.CharField(max_length=5)
-    T = models.CharField(max_length=5)      
+    T = models.CharField(max_length=5) 
+    class Meta:
+       unique_together = ('S', 'T')          
     
 class Target1(models.Model):
     X = models.CharField(max_length=5)
@@ -110,8 +111,7 @@ class EqualManager(models.Manager):
             try:
                 new_equal = Equal (I=equal_element.J, J=equal_element.I)
                 new_equal.save()
-            except: 
-                continue
+            except: continue
                 
     def rule_10(self):
         for equal_element1 in Equal.objects.all():            
@@ -120,8 +120,7 @@ class EqualManager(models.Manager):
                     try:               
                         new_equal = Equal (I=equal_element1.I, J=equal_element2.J)                
                         new_equal.save() 
-                    except:
-                        continue                 
+                    except: continue                 
              
     def rule_11(self):
         for mapping_element1 in Mapping.objects.all():            
@@ -130,9 +129,17 @@ class EqualManager(models.Manager):
                     try:      
                         new_equal = Equal (I=mapping_element1.S, J=mapping_element2.S)            
                         new_equal.save()
-                    except:
-                        continue        
+                    except: continue        
             
+    def rule_13(self):
+        for equal_element in Equal.objects.all():
+            for mapping_element in Mapping.objects.all():
+                if mapping_element.S == equal_element.I:
+                    try:
+                        new_mapping = Mapping(S=equal_element.J, T=mapping_element.T)
+                        new_mapping.save()
+                    except: continue
+    
     def rule_12(self):
         for mapping_element1 in Mapping.objects.all():            
             for mapping_element2 in Mapping.objects.all(): 
@@ -140,9 +147,8 @@ class EqualManager(models.Manager):
                     try:
                         new_equal = Equal (I=mapping_element1.T, J=mapping_element2.T)            
                         new_equal.save()                  
-                    except:
-                        continue           
-        
+                    except: continue           
+
     def not_exausted(self, new_objects_count):
         if self.current_objects_count is new_objects_count:
             return False

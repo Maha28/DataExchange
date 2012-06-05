@@ -99,3 +99,8 @@ def clear_equal_from_equal(request):
     models.Equal.objects.clear_equal()
     messages.success(request, "You have successfully cleared Equal")
     return HttpResponseRedirect(reverse('equal'))  
+
+def update_mapping_from_equal(request):
+    models.Equal.objects.rule_13()
+    messages.success(request, "You have successfully updated the mapping table using equal")
+    return HttpResponseRedirect(reverse('equal'))  
