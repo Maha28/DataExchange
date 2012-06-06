@@ -146,23 +146,28 @@ class EqualManager(models.Manager):
                         new_equal.save()                  
                     except: continue    
                     
-    def rule_13(self):
-        for equal_element in Equal.objects.all():
-            for mapping_element in self.mapping.objects.all():
-                if mapping_element.S == equal_element.I :
-                    try:
-                        new_mapping = Mapping(S=equal_element.J, T=mapping_element.T)
-                        new_mapping.save()
-                    except: continue     
+    def rule_13(self):      
+        for mapping_element in self.mapping.objects.all():
+            for equal_element1 in Equal.objects.all():
+                if mapping_element.S == equal_element1.I:
+                    for equal_element2 in Equal.objects.filter(I=mapping_element.S):
+                        new_mapping = Mapping(S=equal_element1.J, T=equal_element2.J)
+                        try:
+                            new_mapping.save()
+                        except: continue
+
                     
     def rule_14(self):
         for equal_element in Equal.objects.all():
             for source_element in self.source.objects.all():
                 if source_element.A == equal_element.I:
+                    new_source = self.source(A=equal_element.J, B=source_element.B)
                     try:
-                        new_source = Source(A=equal_element.J, B=source_element.B)
                         new_source.save()
-                    except: continue                                           
+                    except: continue     
+
+                 
+                                                          
 
     def not_exausted(self, new_objects_count):
         if self.current_objects_count is new_objects_count:
