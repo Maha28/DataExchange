@@ -2,56 +2,50 @@ import os, random, string
 from django.db import models
 import pdb
 
+#Constants
+MAX_RANDOM_ENTRIES = 10
+MAX_RANDOM_SOURCE = 10
+MAX_RANDOM_TARGET = 5 
+
 class SourceManager(models.Manager):
-    MAX_RANDOM_ENTRIES = 10
     
     def populate_source(self):
-        i = 0
-        while i<self.MAX_RANDOM_ENTRIES:
+        for i in range(0,MAX_RANDOM_ENTRIES):
             source1 = Source1(A=source_generator(2),B=source_generator(2))
             source2 = Source2(A=source_generator(2),B=source_generator(2))
             source3 = Source3(A=source_generator(2),B=source_generator(2))
             source1.save()
             source2.save()
-            source3.save()
-            i = i+1      
+            source3.save()     
     
     def clear_source(self):
         Source1.objects.all().delete()
         Source2.objects.all().delete() 
         Source3.objects.all().delete()  
+        
+class Source (models.Model):  
+    objects = SourceManager()
+    A = models.CharField(max_length=5)
+    B = models.CharField(max_length=5)          
+    class Meta:
+       unique_together = ('A', 'B')  
+       abstract = True   
 
-class Source1(models.Model):    
-    objects = SourceManager()
-    A = models.CharField(max_length=5)
-    B = models.CharField(max_length=5)
-    class Meta:
-       unique_together = ('A', 'B')     
-    
-class Source2(models.Model):
-    objects = SourceManager()
-    A = models.CharField(max_length=5)
-    B = models.CharField(max_length=5)   
-    class Meta:
-       unique_together = ('A', 'B')     
-    
-class Source3(models.Model):
-    objects = SourceManager()
-    A = models.CharField(max_length=5)
-    B = models.CharField(max_length=5)
-    class Meta:
-       unique_together = ('A', 'B')            
+class Source1(Source):    
+    pass    
+class Source2(Source):   
+    pass    
+class Source3(Source):  
+    pass         
 
 class MappingManager(models.Manager):
-    MAX_RANDOM_SOURCE = 10
-    MAX_RANDOM_TARGET = 5    
     def populate_mapping(self):
         S = []
         T = []
-        for i in range(0,self.MAX_RANDOM_SOURCE):
+        for i in range(0,MAX_RANDOM_SOURCE):
             S.append(source_generator(2))
-            if i < self.MAX_RANDOM_TARGET: T.append(target_generator(2)) 
-            else: T.append(T[int(random.uniform(0,self.MAX_RANDOM_TARGET))])
+            if i < MAX_RANDOM_TARGET: T.append(target_generator(2)) 
+            else: T.append(T[int(random.uniform(0,MAX_RANDOM_TARGET))])
             try:
                 mapping = Mapping(S=S[i],T=T[i])
                 mapping.save()
