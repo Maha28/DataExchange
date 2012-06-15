@@ -3,8 +3,8 @@
 {%block content%}
     <section id="dbSections">
 	    <header><h2>Source db operations</h2></header>
-    		<a href="populate_source">Populate Source</a> 
-    		<a href="clear_source">Clear Source</a> 
+    		<a href="{% url populate_source 'source' %}">Populate Source</a> </br>
+    		<a href="{% url clear_source 'source' %}">Clear Source</a> 
 	</section>
 	<section id="view">
     <header><h2>View Source</h2></header>

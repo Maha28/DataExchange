@@ -3,10 +3,10 @@
 {%block content%}
     <section id="dbSections">
 	    <header><h2>Equal db operations</h2></header>
-	        <a href="generate_equal">Generate Equal</a>  
-	        <a href="update_mapping">Update Mapping using Equal</a>  
-	        <a href="update_source">Update Source using Equal</a> 
-    		<a href="clear_equal">Clear Equal</a> 
+	        <a href="{% url generate_equal 'equal' %}">Generate Equal</a>  </br>
+	        <a href="{% url update_mapping_from_equal 'equal' %}">Update Mapping using Equal</a>  </br>
+	        <a href="{% url update_source_from_equal 'equal' %}">Update Source using Equal</a> </br>
+    		<a href="{% url clear_equal 'source' %}">Clear Equal</a> 
 	</section>
 	<section id="view">
 		<div class="viewTable">
