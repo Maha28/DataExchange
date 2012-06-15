@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^database/clear_equal/(?P<view_name>\w+)/$', 'data.views.clear_equal', name='clear_equal'), 
     url(r'^database/update_mapping_from_equal/(?P<view_name>\w+)/$', 'data.views.update_mapping_from_equal', name='update_mapping_from_equal'),  
     url(r'^database/update_source_from_equal/(?P<view_name>\w+)/$', 'data.views.update_source_from_equal', name='update_source_from_equal'),        
-    url(r'^database/clear_all/(?P<view_name>\w+)/$', 'data.views.clear_all', name='clear_all'),                     
+    url(r'^database/clear_all/$', 'data.views.clear_all', name='clear_all'),                     
     
     #Source                   
     url(r'^source/$', 'data.views.source', name='source'),
