@@ -3,9 +3,7 @@ from django.db import models
 import pdb
 
 #Constants
-MAX_RANDOM_ENTRIES = 10
-MAX_RANDOM_SOURCE = 10
-MAX_RANDOM_TARGET = 5 
+MAX_RANDOM_ENTRIES = 20
 
 #Source 
 class SourceManager(models.Manager):
