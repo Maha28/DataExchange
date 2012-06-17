@@ -35,7 +35,7 @@ def clear_source(request, view_name):
 #Mapping
 def mapping(request):
     context = {}
-    context['mapping'] = models.Mapping.objects.all() 
+    context['mapping'] = models.Mapping.objects.all().order_by('T') 
     return render(request, 'mapping.html',context)
 
 def populate_mapping(request,view_name):
