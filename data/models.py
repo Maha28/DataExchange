@@ -40,21 +40,31 @@ class Source3(Source):
 
 #Mapping
 class MappingManager(models.Manager):
+    source = Source1
+    
     def populate_mapping(self):
         S = []
         T = []
-        for i in range(0,MAX_RANDOM_SOURCE):
-            S.append(source_generator(2))
-            if i < MAX_RANDOM_TARGET: T.append(target_generator(2)) 
-            else: T.append(T[int(random.uniform(0,MAX_RANDOM_TARGET))])
+        for source_element in self.source.objects.all():
+            #Adding Source elements
+            random_number = int(random.uniform(0,1))
+            if random_number == 0: appending_multiple_times_based_on_random(S, 1, 4, source_element.A)
+            else: appending_multiple_times_based_on_random(S, 1, 4, source_element.B)
+            #Adding Target elements
+            appending_multiple_times_based_on_random(T, 1, 4, target_generator(2))
+        #pdb.set_trace()
+        for i in range(0,len(S)):
             try:
                 mapping = Mapping(S=S[i],T=T[i])
                 mapping.save()
             except: 
                 continue
     
+    
     def clear_mapping(self):
         Mapping.objects.all().delete()
+        
+        
 
 class Mapping(models.Model):
     objects = MappingManager()
@@ -206,5 +216,12 @@ def source_generator(size=6, chars=string.ascii_uppercase + string.digits):
 
 def target_generator(size=6, chars=string.digits):  
     return '_'.join(random.choice(chars) for x in range(size)) 
+
+def appending_multiple_times_based_on_random(list, start, end, element):
+        random_number = int(random.uniform(start,end))
+        for i in range(1,random_number):
+            list.append(element)
+
+
 
           
