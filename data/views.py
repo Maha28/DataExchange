@@ -111,8 +111,13 @@ def database(request):
     return render(request, 'database.html', context)
 
 def clear_all(request):
-    models.Source.objects.clear_source()
+    models.Source.objects.clear_all_sources()
     models.Mapping.objects.clear_mapping()
     models.Equal.objects.clear_equal()
     messages.success(request, "You have successfully cleared everything")
     return HttpResponseRedirect(reverse('database')) 
+
+def clear_all_sources(request):
+    for source in models.sources.objects.all():
+        clear_source(source.pk)
+        

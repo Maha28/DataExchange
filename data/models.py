@@ -25,6 +25,10 @@ class SourceManager(models.Manager):
     def clear_source(self, source_id):
         Source.objects.filter(pk = source_id).delete()
         
+    def clear_all_sources(self):    
+        for source in self.all():
+            self.clear_source(source.pk)
+        
 class Source (models.Model):  
     objects = SourceManager()
     A = models.CharField(max_length=5)

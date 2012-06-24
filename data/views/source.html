@@ -16,6 +16,7 @@
 	</section>
 	<section id="view">
     <header><h2>View Source</h2></header>
+    {% for source_element in source %}
 		<div class="viewTable">
 	    	<h3>Source</h3>
 	    	<table>
@@ -23,13 +24,12 @@
 		    		<th>A</th>
 		    		<th>B</th>
 	    		</tr>    	
-	    	{% for source_element in source %}
 				<tr>
 					<td>{{source_element.A}}</td>
 					<td>{{source_element.B}}</td>
-				</tr>
-	    	{% endfor %}	
+				</tr>	
 	    	</table> 
 	    </div>
+	{% endfor %}    
     </section>   
 {%endblock%}
