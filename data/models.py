@@ -74,9 +74,30 @@ class Mapping(models.Model):
         unique_together = ('S', 'T')          
     
 #Target    
+class TargetsManager(models.Manager):
+    def addNewTarget(self):
+        new_target = Targets()
+        new_target.save() 
+        return new_target.pk  
+    
+    def deleteTarget(self, target_id):
+        self.filter(pk=target_id).delete()
+    
+class Targets(models.Model):
+    objects = TargetsManager()
+    
+class TargetManager(models.Manager):    
+    def clear_target(self, target_id):
+        Targets.objects.filter(targets=target_id).delete()
+        
+    def clear_all_targets(self):    
+        for target in self.all():
+            self.clear_target(target.pk)
+            
 class Target(models.Model):
     X = models.CharField(max_length=5)
     Y = models.CharField(max_length=5)  
+    objects = TargetManager()
     class Meta:
         unique_together = ('X', 'Y')   
 

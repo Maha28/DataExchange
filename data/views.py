@@ -114,7 +114,26 @@ def clear_equal(request,view_name):
 
 #Queries
 def queries(request):
-    return render(request, 'queries.html')
+    context = {}
+    context['sources'] = models.Sources.objects.all()    
+    return render(request, 'queries.html', context)
+
+#Target
+def create_new_target(request, view_name):
+    target_id = models.Targets.objects.addNewTarget() 
+    messages.success(request, "You have successfully added a new target with id %i " % target_id )
+    if view_name == 'target':
+        return HttpResponseRedirect(reverse('target'))  
+    else:     
+        return HttpResponseRedirect(reverse('database'))   
+    
+def delete_target(request, view_name, target_id):
+    models.Target.objects.deleteTarget(int(target_id)) 
+    messages.success(request, "You have successfully deleted the target with id %i " % int(target_id))
+    if view_name == 'target':
+        return HttpResponseRedirect(reverse('target'))  
+    else:     
+        return HttpResponseRedirect(reverse('database')) 
 
 #Database
 def database(request):

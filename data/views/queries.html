@@ -4,10 +4,24 @@
    <section id="querySection">
    <header><h2>Query</h2></header>
    		<form>
-   			<input id="source" type="text" />
+   			<select id="source">
+   				{% for source_element in sources %}
+   				<option>Source{{source_element.pk}}</option>
+   				{% endfor %}
+   			</select>
+ 			(
+   			<input id="source_arguments" type="text" />
+   			)
    			--->
+   			<select id="source">
+   				{% for target_element in targets %}
+   				<option>Source{{target_element.pk}}</option>
+   				{% endfor %}
+   			</select>
+   			(   			
    			<input id="target" type="text" />
-   			<button>Run</button>
+   			)
+   			<button type="submit">Run</button>
    		</form>
    </section>  
 {%endblock%}

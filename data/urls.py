@@ -29,6 +29,7 @@ urlpatterns = patterns('',
    
     #Queries   
     url(r'^queries/$', 'data.views.queries', name='queries'),
+    url(r'^queries/(?P<source_id>\w+)/$', 'data.views.queries', name='queries'),
    
     #Target   
     url(r'^target/$', 'data.views.target', name='target'),   
