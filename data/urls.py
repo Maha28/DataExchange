@@ -27,6 +27,9 @@ urlpatterns = patterns('',
     url(r'^database/update_mapping_from_equal/(?P<view_name>\w+)/$', 'data.views.update_mapping_from_equal', name='update_mapping_from_equal'),  
     url(r'^database/update_source_from_equal/(?P<view_name>\w+)/$', 'data.views.update_source_from_equal', name='update_source_from_equal'),        
    
+    #Queries   
+    url(r'^queries/$', 'data.views.queries', name='queries'),
+   
     #Target   
     url(r'^target/$', 'data.views.target', name='target'),   
 )

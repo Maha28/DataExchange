@@ -112,6 +112,10 @@ def clear_equal(request,view_name):
     else:     
         return HttpResponseRedirect(reverse('database'))
 
+#Queries
+def queries(request):
+    return render(request, 'queries.html')
+
 #Database
 def database(request):
     context = {}
