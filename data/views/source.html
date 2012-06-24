@@ -5,31 +5,35 @@
 	    <header><h2>Source</h2></header>
 	    	<a href="{% url create_new_source 'source' %}">Create a new Source</a> </br>
 	    	<table>
-	    		{% for entry in sources %}
+	    		{% for sources_element in sources %}
 	    		<tr>
-					<td>Source{{entry.pk}}</td>
-					<td><a href="{% url populate_source 'source' entry.pk %}">populate</a></td>
-					<td><a href="{% url clear_source 'source' entry.pk %}">clear</a></td>
+					<td>Source{{sources_element.pk}}</td>
+					<td><a href="{% url populate_source 'source' sources_element.pk %}">populate</a></td>
+					<td><a href="{% url clear_source 'source' sources_element.pk %}">clear</a></td>
 				</tr>
 	    		{% endfor %}
 	    	</table>
 	</section>
 	<section id="view">
     <header><h2>View Source</h2></header>
-    {% for source_element in source %}
+    {% for sources_element in sources %}
 		<div class="viewTable">
-	    	<h3>Source</h3>
+	    	<h3>Source{{sources_element.pk}}</h3>
 	    	<table>
 	    		<tr>
 		    		<th>A</th>
 		    		<th>B</th>
 	    		</tr>    	
+	    	{% for source_element in source %}
+	    		{% if source_element.sources.pk == sources_element.pk %}
 				<tr>
 					<td>{{source_element.A}}</td>
 					<td>{{source_element.B}}</td>
-				</tr>	
+				</tr>
+				{% endif %}
+	    	{% endfor %}	
 	    	</table> 
 	    </div>
-	{% endfor %}    
+	{% endfor %}  
     </section>   
 {%endblock%}
