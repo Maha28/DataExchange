@@ -28,7 +28,11 @@ def clear_source(request, view_name):
     if view_name == 'source':
         return HttpResponseRedirect(reverse('source'))  
     else:     
-        return HttpResponseRedirect(reverse('database'))   
+        return HttpResponseRedirect(reverse('database'))  
+    
+def create_new_source(request):
+    source_id = models.Sources.objects.addNewSource() 
+    messages.success(request, "You have successfully added a new source with id " + source_id )
 
 #Mapping
 def mapping(request):

@@ -6,10 +6,19 @@ import pdb
 MAX_RANDOM_ENTRIES = 20
 
 #Source 
+class SourcesManager(models.Manager):
+    def addNewSource(self):
+        new_source = Sources()
+        new_source.save() 
+        return new_source.pk   
+    
+class Sources(models.Model):
+    pass
+    
 class SourceManager(models.Manager):
-    def populate_source(self):
+    def populate_source(self, source_id):
         for i in range(0,MAX_RANDOM_ENTRIES):
-            source = Source(A=source_generator(2),B=source_generator(2))
+            source = Source(A=source_generator(2),B=source_generator(2), source_id)
             source.save()     
     
     def clear_source(self):
@@ -19,6 +28,7 @@ class Source (models.Model):
     objects = SourceManager()
     A = models.CharField(max_length=5)
     B = models.CharField(max_length=5)          
+    sources = models.ForeignKey(Sources)
     class Meta:
         unique_together = ('A', 'B')      
 
@@ -46,8 +56,6 @@ class MappingManager(models.Manager):
     
     def clear_mapping(self):
         Mapping.objects.all().delete()
-        
-        
 
 class Mapping(models.Model):
     objects = MappingManager()
@@ -61,11 +69,7 @@ class Target(models.Model):
     X = models.CharField(max_length=5)
     Y = models.CharField(max_length=5)  
     class Meta:
-        unique_together = ('A', 'B')  
-        abstract = True          
-
-class Target(models.Model):
-    pass       
+        unique_together = ('X', 'Y')   
 
 #DOM
 class Dom(models.Model):
@@ -157,7 +161,7 @@ class EqualManager(models.Manager):
         for equal_element in Equal.objects.all():
             for source_element in Source.objects.all():
                 if source_element.A == equal_element.I:
-                    new_source = Source(A=equal_element.J, B=source_element.B)
+                    new_source = Source(A=equal_element.J, B=source_element.B, source_element.sources)
                     try:
                         new_source.save()
                     except: 
