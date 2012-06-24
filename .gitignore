@@ -1,0 +1,11 @@
+data/views.pyc
+data/urls.pyc
+data/models.pyc
+data/test.pyc
+.pydevproject
+.project
+DataExchange/settings.pyc
+DataExchange/urls.pyc
+DataExchange/wsgi.pyc
+DataExchange/sqlite.db
+DataExchange/__init__.pyc
