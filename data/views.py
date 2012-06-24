@@ -15,7 +15,15 @@ def create_new_source(request, view_name):
     if view_name == 'source':
         return HttpResponseRedirect(reverse('source'))  
     else:     
-        return HttpResponseRedirect(reverse('database'))     
+        return HttpResponseRedirect(reverse('database'))   
+    
+def delete_source(request, view_name, source_id):
+    models.Sources.objects.deleteSource(int(source_id)) 
+    messages.success(request, "You have successfully deleted the source with id %i " % int(source_id))
+    if view_name == 'source':
+        return HttpResponseRedirect(reverse('source'))  
+    else:     
+        return HttpResponseRedirect(reverse('database'))         
 
 def source(request):
     context = {}

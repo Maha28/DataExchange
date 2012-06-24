@@ -11,6 +11,7 @@
 					<td>Source{{entry.pk}}</td>
 					<td><a href="{% url populate_source 'database' entry.pk %}">populate</a></td>
 					<td><a href="{% url clear_source 'database' entry.pk %}">clear</a></td>
+					<td><a href="{% url delete_source 'database' entry.pk %}">delete</a></td>
 				</tr>
 	    		{% endfor %}
 	    	</table>

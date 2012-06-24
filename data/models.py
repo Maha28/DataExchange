@@ -10,7 +10,11 @@ class SourcesManager(models.Manager):
     def addNewSource(self):
         new_source = Sources()
         new_source.save() 
-        return new_source.pk   
+        return new_source.pk  
+    
+    def deleteSource(self, source_id):
+        self.filter(pk=source_id).delete()
+          
     
 class Sources(models.Model):
     objects = SourcesManager()
