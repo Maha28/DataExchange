@@ -64,10 +64,8 @@ class Target(models.Model):
         unique_together = ('A', 'B')  
         abstract = True          
 
-class Target1(models.Model):
-    pass      
-class Target2(models.Model):
-    pass   
+class Target(models.Model):
+    pass       
 
 #DOM
 class Dom(models.Model):
