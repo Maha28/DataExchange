@@ -1,4 +1,4 @@
-import os, random, string
+import random, string
 from django.db import models
 import pdb
 
@@ -9,41 +9,26 @@ MAX_RANDOM_ENTRIES = 20
 class SourceManager(models.Manager):
     def populate_source(self):
         for i in range(0,MAX_RANDOM_ENTRIES):
-            source1 = Source1(A=source_generator(2),B=source_generator(2))
-            source2 = Source2(A=source_generator(2),B=source_generator(2))
-            source3 = Source3(A=source_generator(2),B=source_generator(2))
-            source1.save()
-            source2.save()
-            source3.save()     
+            source = Source(A=source_generator(2),B=source_generator(2))
+            source.save()     
     
     def clear_source(self):
-        Source1.objects.all().delete()
-        Source2.objects.all().delete() 
-        Source3.objects.all().delete()  
+        Source.objects.all().delete()
         
 class Source (models.Model):  
     objects = SourceManager()
     A = models.CharField(max_length=5)
     B = models.CharField(max_length=5)          
     class Meta:
-       unique_together = ('A', 'B')  
-       abstract = True   
-
-class Source1(Source):    
-    pass    
-class Source2(Source):   
-    pass    
-class Source3(Source):  
-    pass         
+        unique_together = ('A', 'B')      
 
 #Mapping
 class MappingManager(models.Manager):
-    source = Source1
     
     def populate_mapping(self):
         S = []
         T = []
-        for source_element in self.source.objects.all():
+        for source_element in Source.objects.all():
             #Adding Source elements
             appending_multiple_times_based_on_random(S, 1, 4, source_element.A)
             appending_multiple_times_based_on_random(S, 1, 4, source_element.B)
@@ -69,15 +54,15 @@ class Mapping(models.Model):
     S = models.CharField(max_length=5)
     T = models.CharField(max_length=5) 
     class Meta:
-       unique_together = ('S', 'T')          
+        unique_together = ('S', 'T')          
     
 #Target    
 class Target(models.Model):
     X = models.CharField(max_length=5)
     Y = models.CharField(max_length=5)  
     class Meta:
-       unique_together = ('A', 'B')  
-       abstract = True          
+        unique_together = ('A', 'B')  
+        abstract = True          
 
 class Target1(models.Model):
     pass      
@@ -88,8 +73,8 @@ class Target2(models.Model):
 class Dom(models.Model):
     dom = list()
     
-    def generate_dom(self, source, mapping):
-        for source_element in source.objects.all():
+    def generate_dom(self, Source, mapping):
+        for source_element in Source.objects.all():
             self.dom.append(source_element.A)
             self.dom.append(source_element.B)
         for mapping_element in mapping.objects.all():
@@ -108,7 +93,6 @@ class Dom(models.Model):
 class EqualManager(models.Manager):
     dom = Dom() 
     current_objects_count = -1
-    source = Source1
     mapping = Mapping
     
     def get_dom(self):
@@ -173,9 +157,9 @@ class EqualManager(models.Manager):
                     
     def rule_14(self):
         for equal_element in Equal.objects.all():
-            for source_element in self.source.objects.all():
+            for source_element in Source.objects.all():
                 if source_element.A == equal_element.I:
-                    new_source = self.source(A=equal_element.J, B=source_element.B)
+                    new_source = Source(A=equal_element.J, B=source_element.B)
                     try:
                         new_source.save()
                     except: 
@@ -190,7 +174,7 @@ class EqualManager(models.Manager):
         
     def generate_equal(self):
         while self.not_exausted(Equal.objects.all().count()):
-            self.dom.generate_dom(self.source, self.mapping)
+            self.dom.generate_dom(Source, self.mapping)
             self.rule_8()
             self.rule_9()
             self.rule_10()
@@ -206,7 +190,7 @@ class Equal(models.Model):
     I = models.CharField(max_length=5)
     J = models.CharField(max_length=5)
     class Meta:
-       unique_together = ('I', 'J')    
+        unique_together = ('I', 'J')    
         
 #Helpers        
 def source_generator(size=6, chars=string.ascii_uppercase + string.digits):  
@@ -215,10 +199,10 @@ def source_generator(size=6, chars=string.ascii_uppercase + string.digits):
 def target_generator(size=6, chars=string.digits):  
     return '_'.join(random.choice(chars) for x in range(size)) 
 
-def appending_multiple_times_based_on_random(list, start, end, element):
+def appending_multiple_times_based_on_random(rlist, start, end, element):
         random_number = int(random.uniform(start,end))
         for i in range(1,random_number):
-            list.append(element)
+            rlist.append(element)
 
 
 

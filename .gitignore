@@ -9,3 +9,4 @@ DataExchange/urls.pyc
 DataExchange/wsgi.pyc
 DataExchange/sqlite.db
 DataExchange/__init__.pyc
+data/__init__.pyc

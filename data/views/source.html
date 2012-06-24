@@ -9,49 +9,19 @@
 	<section id="view">
     <header><h2>View Source</h2></header>
 		<div class="viewTable">
-	    	<h3>Source1</h3>
+	    	<h3>Source</h3>
 	    	<table>
 	    		<tr>
 		    		<th>A</th>
 		    		<th>B</th>
 	    		</tr>    	
-	    	{% for entry in source1 %}
+	    	{% for entry in source %}
 				<tr>
 					<td>{{entry.A}}</td>
 					<td>{{entry.B}}</td>
 				</tr>
 	    	{% endfor %}	
-	    	</table>
-	    </div>
-		<div class="viewTable">
-	    	<h3>Source2</h3>
-	    	<table>
-	    		<tr>
-		    		<th>A</th>
-		    		<th>B</th>
-	    		</tr>
-	     	{% for entry in source2 %}
-				<tr>
-					<td>{{entry.A}}</td>
-					<td>{{entry.B}}</td>
-				</tr>
-	    	{% endfor %}	   		
-	    	</table>    	
-	    </div>    
-		<div class="viewTable">
-	    	<h3>Source3</h3>
-	    	<table>
-	    		<tr>
-		    		<th>A</th>
-		    		<th>B</th>
-	    		</tr>
-	    	{% for entry in source3 %}
-				<tr>
-					<td>{{entry.A}}</td>
-					<td>{{entry.B}}</td>
-				</tr>
-	    	{% endfor %}	    		
-	    	</table>    	
+	    	</table> 	
 	    </div>
     </section>   
 {%endblock%}

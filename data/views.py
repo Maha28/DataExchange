@@ -11,13 +11,11 @@ def home(request):
 #Source
 def source(request):
     context = {}
-    context['source1'] = models.Source1.objects.all()
-    context['source2'] = models.Source2.objects.all()  
-    context['source3'] = models.Source3.objects.all()  
+    context['source'] = models.Source.objects.all()
     return render(request, 'source.html', context)
 
 def populate_source(request, view_name):
-    models.Source1.objects.populate_source()
+    models.Source.objects.populate_source()
     messages.success(request, "You have successfully populated the source tables")
     if view_name == 'source':
         return HttpResponseRedirect(reverse('source'))  
@@ -25,7 +23,7 @@ def populate_source(request, view_name):
         return HttpResponseRedirect(reverse('database'))  
 
 def clear_source(request, view_name):
-    models.Source1.objects.clear_source()
+    models.Source.objects.clear_source()
     messages.success(request, "You have successfully cleared the source tables")
     if view_name == 'source':
         return HttpResponseRedirect(reverse('source'))  
@@ -101,7 +99,7 @@ def database(request):
     return render(request, 'database.html')
 
 def clear_all(request):
-    models.Source1.objects.clear_source()
+    models.Source.objects.clear_source()
     models.Mapping.objects.clear_mapping()
     models.Equal.objects.clear_equal()
     messages.success(request, "You have successfully cleared everything")
