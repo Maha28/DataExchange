@@ -45,10 +45,10 @@ class MappingManager(models.Manager):
         T = []
         for source_element in self.source.objects.all():
             #Adding Source elements
-            random_number = int(random.uniform(0,1))
-            if random_number == 0: appending_multiple_times_based_on_random(S, 1, 4, source_element.A)
-            else: appending_multiple_times_based_on_random(S, 1, 4, source_element.B)
+            appending_multiple_times_based_on_random(S, 1, 4, source_element.A)
+            appending_multiple_times_based_on_random(S, 1, 4, source_element.B)
             #Adding Target elements
+            appending_multiple_times_based_on_random(T, 1, 4, target_generator(2))
             appending_multiple_times_based_on_random(T, 1, 4, target_generator(2))
         #pdb.set_trace()
         for i in range(0,len(S)):
