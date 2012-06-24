@@ -13,16 +13,17 @@ class SourcesManager(models.Manager):
         return new_source.pk   
     
 class Sources(models.Model):
-    pass
+    objects = SourcesManager()
     
 class SourceManager(models.Manager):
     def populate_source(self, source_id):
+        source_instance = Sources.objects.get(pk = source_id)
         for i in range(0,MAX_RANDOM_ENTRIES):
-            source = Source(A=source_generator(2),B=source_generator(2), source_id)
+            source = Source(A=source_generator(2),B=source_generator(2), sources = source_instance)
             source.save()     
     
-    def clear_source(self):
-        Source.objects.all().delete()
+    def clear_source(self, source_id):
+        Source.objects.filter(pk = source_id).delete()
         
 class Source (models.Model):  
     objects = SourceManager()
@@ -161,7 +162,7 @@ class EqualManager(models.Manager):
         for equal_element in Equal.objects.all():
             for source_element in Source.objects.all():
                 if source_element.A == equal_element.I:
-                    new_source = Source(A=equal_element.J, B=source_element.B, source_element.sources)
+                    new_source = Source(A=equal_element.J, B=source_element.B, sources=source_element.sources)
                     try:
                         new_source.save()
                     except: 

@@ -6,8 +6,9 @@ urlpatterns = patterns('',
                        
     #Database
     url(r'^database/$', 'data.views.database', name='database'),
-    url(r'^database/populate_source/(?P<view_name>\w+)/$', 'data.views.populate_source', name='populate_source'),
-    url(r'^database/clear_source/(?P<view_name>\w+)/$', 'data.views.clear_source', name='clear_source'),
+    url(r'^database/create_new_source/(?P<view_name>\w+)/$', 'data.views.create_new_source', name='create_new_source'),
+    url(r'^database/populate_source/(?P<view_name>\w+)/(?P<source_id>\w+)/$', 'data.views.populate_source', name='populate_source'),
+    url(r'^database/clear_source/(?P<view_name>\w+)/(?P<source_id>\w+)/$', 'data.views.clear_source', name='clear_source'),
     url(r'^database/populate_mapping/(?P<view_name>\w+)/$', 'data.views.populate_mapping', name='populate_mapping'),
     url(r'^database/clear_mapping/(?P<view_name>\w+)/$', 'data.views.clear_mapping', name='clear_mapping'),    
     url(r'^database/generate_equal/(?P<view_name>\w+)/$', 'data.views.generate_equal', name='generate_equal'),

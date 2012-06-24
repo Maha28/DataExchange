@@ -4,8 +4,16 @@
     <header></header>
       <section id="dbSections">
 	    <header><h2>Source</h2></header>
-    		<a href="{% url populate_source 'database' %}">Populate Source</a> </br>
-    		<a href="{% url clear_source 'database' %}">Clear Source</a> 
+	    	<a href="{% url create_new_source 'database' %}">Create a new Source</a> </br>
+	    	<table>
+	    		{% for entry in sources %}
+	    		<tr>
+					<td>Source{{entry.pk}}</td>
+					<td><a href="{% url populate_source 'database' entry.pk %}">populate</a></td>
+					<td><a href="{% url clear_source 'database' entry.pk %}">clear</a></td>
+				</tr>
+	    		{% endfor %}
+	    	</table>
 	  </section>
       <section id="dbSections">
 	    <header><h2>Mapping</h2></header>

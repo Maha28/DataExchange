@@ -9,30 +9,35 @@ def home(request):
     return render(request, 'home.html')
 
 #Source
+def create_new_source(request, view_name):
+    source_id = models.Sources.objects.addNewSource() 
+    messages.success(request, "You have successfully added a new source with id %i " % source_id )
+    if view_name == 'source':
+        return HttpResponseRedirect(reverse('source'))  
+    else:     
+        return HttpResponseRedirect(reverse('database'))     
+
 def source(request):
     context = {}
-    context['source'] = models.Source.objects.all()
+    context['sources'] = models.Sources.objects.all()
     return render(request, 'source.html', context)
 
-def populate_source(request, view_name):
-    models.Source.objects.populate_source()
-    messages.success(request, "You have successfully populated the source tables")
+def populate_source(request, view_name, source_id):
+    models.Source.objects.populate_source(source_id)
+    messages.success(request, "You have successfully populated the source with id %i " % int(source_id))
     if view_name == 'source':
         return HttpResponseRedirect(reverse('source'))  
     else:     
         return HttpResponseRedirect(reverse('database'))  
 
-def clear_source(request, view_name):
-    models.Source.objects.clear_source()
+def clear_source(request, view_name, source_id):
+    models.Source.objects.clear_source(source_id)
     messages.success(request, "You have successfully cleared the source tables")
     if view_name == 'source':
         return HttpResponseRedirect(reverse('source'))  
     else:     
         return HttpResponseRedirect(reverse('database'))  
     
-def create_new_source(request):
-    source_id = models.Sources.objects.addNewSource() 
-    messages.success(request, "You have successfully added a new source with id " + source_id )
 
 #Mapping
 def mapping(request):
@@ -100,7 +105,9 @@ def clear_equal(request,view_name):
 
 #Database
 def database(request):
-    return render(request, 'database.html')
+    context = {}
+    context['sources'] = models.Sources.objects.all() 
+    return render(request, 'database.html', context)
 
 def clear_all(request):
     models.Source.objects.clear_source()

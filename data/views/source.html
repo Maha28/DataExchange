@@ -2,9 +2,17 @@
 {%block title%}Source{%endblock%}
 {%block content%}
     <section id="dbSections">
-	    <header><h2>Source db operations</h2></header>
-    		<a href="{% url populate_source 'source' %}">Populate Source</a> </br>
-    		<a href="{% url clear_source 'source' %}">Clear Source</a> 
+	    <header><h2>Source</h2></header>
+	    	<a href="{% url create_new_source 'source' %}">Create a new Source</a> </br>
+	    	<table>
+	    		{% for entry in sources %}
+	    		<tr>
+					<td>Source{{entry.pk}}</td>
+					<td><a href="{% url populate_source 'source' entry.pk %}">populate</a></td>
+					<td><a href="{% url clear_source 'source' entry.pk %}">clear</a></td>
+				</tr>
+	    		{% endfor %}
+	    	</table>
 	</section>
 	<section id="view">
     <header><h2>View Source</h2></header>
