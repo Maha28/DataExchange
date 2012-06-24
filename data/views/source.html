@@ -23,13 +23,13 @@
 		    		<th>A</th>
 		    		<th>B</th>
 	    		</tr>    	
-	    	{% for entry in source %}
+	    	{% for source_element in source %}
 				<tr>
-					<td>{{entry.A}}</td>
-					<td>{{entry.B}}</td>
+					<td>{{source_element.A}}</td>
+					<td>{{source_element.B}}</td>
 				</tr>
 	    	{% endfor %}	
-	    	</table> 	
+	    	</table> 
 	    </div>
     </section>   
 {%endblock%}

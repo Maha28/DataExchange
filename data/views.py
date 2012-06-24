@@ -20,6 +20,7 @@ def create_new_source(request, view_name):
 def source(request):
     context = {}
     context['sources'] = models.Sources.objects.all()
+    context['source'] = models.Source.objects.all()
     return render(request, 'source.html', context)
 
 def populate_source(request, view_name, source_id):
@@ -32,7 +33,7 @@ def populate_source(request, view_name, source_id):
 
 def clear_source(request, view_name, source_id):
     models.Source.objects.clear_source(source_id)
-    messages.success(request, "You have successfully cleared the source tables")
+    messages.success(request, "You have successfully cleared the source with id %i " % int(source_id))
     if view_name == 'source':
         return HttpResponseRedirect(reverse('source'))  
     else:     
