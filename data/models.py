@@ -23,7 +23,7 @@ class SourceManager(models.Manager):
             source.save()     
     
     def clear_source(self, source_id):
-        Source.objects.filter(pk = source_id).delete()
+        Source.objects.filter(sources=source_id).delete()
         
     def clear_all_sources(self):    
         for source in self.all():
