@@ -14,13 +14,13 @@
    			<input id="source_arguments" type="text" />
    			)
    			--->
-   			<select id="source">
+   			<select id="target">
    				{% for target_element in targets %}
    					<option>Target{{target_element.pk}}</option>
    				{% endfor %}
    			</select>
    			(   			
-   			<input id="target" type="text" />
+   			<input id="target_arguments" type="text" />
    			)
    			<button type="submit">Run</button>
    		</form>

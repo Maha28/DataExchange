@@ -116,6 +116,7 @@ def queries(request):
     context['sources'] = models.Sources.objects.all()   
     context['targets'] = models.Targets.objects.all() 
     if request.method == 'POST':
+         models.STDependencies.objects.run_query(request.POST)
          messages.success(request, "You have successfully submited your query")
     return render(request, 'queries.html', context)
 

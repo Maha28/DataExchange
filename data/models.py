@@ -224,6 +224,17 @@ class Equal(models.Model):
     class Meta:
         unique_together = ('I', 'J')    
         
+
+#Source Target Dependencies
+class STDependenciesManager(models.Manager):
+    def run_query(self, query_data):
+        #pdb.set_trace()
+        pass
+        
+class STDependencies(models.Model):
+    objects = STDependenciesManager()
+
+        
 #Helpers        
 def source_generator(size=6, chars=string.ascii_uppercase + string.digits):  
     return ''.join(random.choice(chars) for x in range(size)) 
