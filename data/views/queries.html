@@ -2,11 +2,12 @@
 {%block title%}Queries{%endblock%}
 {%block content%}
    <section id="querySection">
-   <header><h2>Query</h2></header>
-   		<form>
+   <header><h2>Source-Target Dependencies</h2></header>
+   		<form method="POST" class="queryForm" action={% url queries %}>
+   			{% csrf_token %} 
    			<select id="source">
    				{% for source_element in sources %}
-   				<option>Source{{source_element.pk}}</option>
+   					<option>Source{{source_element.pk}}</option>
    				{% endfor %}
    			</select>
  			(
@@ -15,7 +16,7 @@
    			--->
    			<select id="source">
    				{% for target_element in targets %}
-   				<option>Source{{target_element.pk}}</option>
+   					<option>Target{{target_element.pk}}</option>
    				{% endfor %}
    			</select>
    			(   			

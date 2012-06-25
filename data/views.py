@@ -113,7 +113,10 @@ def clear_equal(request,view_name):
 #Queries
 def queries(request):
     context = {}
-    context['sources'] = models.Sources.objects.all()    
+    context['sources'] = models.Sources.objects.all()   
+    context['targets'] = models.Targets.objects.all() 
+    if request.method == 'POST':
+         messages.success(request, "You have successfully submited your query")
     return render(request, 'queries.html', context)
 
 #Target
