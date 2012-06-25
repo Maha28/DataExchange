@@ -5,12 +5,12 @@
 	    <header><h2>Source</h2></header>
 	    	<a href="{% url create_new_source 'database' %}">Create a new Source</a> </br>
 	    	<table>
-	    		{% for entry in sources %}
+	    		{% for source in sources %}
 	    		<tr>
-					<td>Source{{entry.pk}}</td>
-					<td><a href="{% url populate_source 'database' entry.pk %}">populate</a></td>
-					<td><a href="{% url clear_source 'database' entry.pk %}">clear</a></td>
-					<td><a href="{% url delete_source 'database' entry.pk %}">delete</a></td>
+					<td>Source{{source.pk}}</td>
+					<td><a href="{% url populate_source 'database' source.pk %}">populate</a></td>
+					<td><a href="{% url clear_source 'database' source.pk %}">clear</a></td>
+					<td><a href="{% url delete_source 'database' source.pk %}">delete</a></td>
 				</tr>
 	    		{% endfor %}
 	    	</table>
@@ -29,7 +29,16 @@
 	  </section>		  
       <section id="dbSections">
 	    <header><h2>Target</h2></header>
-	    	<a href="#">Clear target</a>
+	    	<a href="{% url create_new_target 'database' %}">Create a new Target</a> </br>
+	    	<table>
+	    		{% for target in targets %}
+	    		<tr>
+					<td>Target{{target.pk}}</td>
+					<td><a href="{% url clear_target 'database' target.pk %}">clear</a></td>
+					<td><a href="{% url delete_target 'database' target.pk %}">delete</a></td>
+				</tr>
+	    		{% endfor %}
+	    	</table>
 	  </section>	  
       <section id="dbSections">
 	    <header><h2>Global</h2></header>

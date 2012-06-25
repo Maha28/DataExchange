@@ -25,6 +25,14 @@ def delete_source(request, view_name, source_id):
     else:     
         return HttpResponseRedirect(reverse('database'))         
 
+def clear_source(request, view_name, source_id):
+    models.Source.objects.clear_source(int(source_id))
+    messages.success(request, "You have successfully cleared the source with id %i " % int(source_id))
+    if view_name == 'source':
+        return HttpResponseRedirect(reverse('source'))  
+    else:     
+        return HttpResponseRedirect(reverse('database'))  
+
 def source(request):
     context = {}
     context['sources'] = models.Sources.objects.all()
@@ -39,14 +47,7 @@ def populate_source(request, view_name, source_id):
     else:     
         return HttpResponseRedirect(reverse('database'))  
 
-def clear_source(request, view_name, source_id):
-    models.Source.objects.clear_source(int(source_id))
-    messages.success(request, "You have successfully cleared the source with id %i " % int(source_id))
-    if view_name == 'source':
-        return HttpResponseRedirect(reverse('source'))  
-    else:     
-        return HttpResponseRedirect(reverse('database'))  
-    
+
 
 #Mapping
 def mapping(request):
@@ -69,9 +70,6 @@ def clear_mapping(request,view_name):
         return HttpResponseRedirect(reverse('mapping'))  
     else:     
         return HttpResponseRedirect(reverse('database'))
-#Target
-def target(request):
-    return render(request, 'target.html')
 
 #Equal
 def equal(request):
@@ -119,6 +117,9 @@ def queries(request):
     return render(request, 'queries.html', context)
 
 #Target
+def target(request):
+    return render(request, 'target.html')
+
 def create_new_target(request, view_name):
     target_id = models.Targets.objects.addNewTarget() 
     messages.success(request, "You have successfully added a new target with id %i " % target_id )
@@ -128,17 +129,26 @@ def create_new_target(request, view_name):
         return HttpResponseRedirect(reverse('database'))   
     
 def delete_target(request, view_name, target_id):
-    models.Target.objects.deleteTarget(int(target_id)) 
+    models.Targets.objects.deleteTarget(int(target_id)) 
     messages.success(request, "You have successfully deleted the target with id %i " % int(target_id))
     if view_name == 'target':
         return HttpResponseRedirect(reverse('target'))  
     else:     
         return HttpResponseRedirect(reverse('database')) 
+    
+def clear_target(request, view_name, target_id):
+    models.Target.objects.clear_target(int(target_id))
+    messages.success(request, "You have successfully cleared the target with id %i " % int(target_id))
+    if view_name == 'target':
+        return HttpResponseRedirect(reverse('target'))  
+    else:     
+        return HttpResponseRedirect(reverse('database'))     
 
 #Database
 def database(request):
     context = {}
     context['sources'] = models.Sources.objects.all() 
+    context['targets'] = models.Targets.objects.all() 
     return render(request, 'database.html', context)
 
 def clear_all(request):

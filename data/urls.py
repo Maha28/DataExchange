@@ -32,5 +32,9 @@ urlpatterns = patterns('',
     url(r'^queries/(?P<source_id>\w+)/$', 'data.views.queries', name='queries'),
    
     #Target   
-    url(r'^target/$', 'data.views.target', name='target'),   
+    url(r'^target/$', 'data.views.target', name='target'),  
+    url(r'^database/create_new_target/(?P<view_name>\w+)/$', 'data.views.create_new_target', name='create_new_target'),
+    url(r'^database/delete_target/(?P<view_name>\w+)/(?P<target_id>\w+)/$', 'data.views.delete_target', name='delete_target'),
+    url(r'^database/clear_target/(?P<view_name>\w+)/(?P<target_id>\w+)/$', 'data.views.clear_target', name='clear_target'),    
+  
 )

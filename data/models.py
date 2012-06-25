@@ -61,8 +61,7 @@ class MappingManager(models.Manager):
                 mapping.save()
             except: 
                 continue
-    
-    
+
     def clear_mapping(self):
         Mapping.objects.all().delete()
 
@@ -88,7 +87,7 @@ class Targets(models.Model):
     
 class TargetManager(models.Manager):    
     def clear_target(self, target_id):
-        Targets.objects.filter(targets=target_id).delete()
+        Target.objects.filter(targets=target_id).delete()
         
     def clear_all_targets(self):    
         for target in self.all():
@@ -98,6 +97,7 @@ class Target(models.Model):
     X = models.CharField(max_length=5)
     Y = models.CharField(max_length=5)  
     objects = TargetManager()
+    targets = models.ForeignKey(Targets)
     class Meta:
         unique_together = ('X', 'Y')   
 
