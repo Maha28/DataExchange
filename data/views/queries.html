@@ -11,8 +11,9 @@
    				{% endfor %}
    			</select>
  			(
-   			<input id="source_arguments" type="text" />
+   			<input id="source_arguments" class="source-target-dependency-input" type="text" />
    			)
+   			<br/>
    			--->
    			<select id="source">
    				{% for target_element in targets %}
@@ -20,7 +21,7 @@
    				{% endfor %}
    			</select>
    			(   			
-   			<input id="target" type="text" />
+   			<input id="target" class="source-target-dependency-input" type="text" />
    			)
    			<button type="submit">Run</button>
    		</form>

@@ -237,7 +237,7 @@ input[type="number"] {
 	width: 3em;
 }
 input[type="text"], input[type="email"],input[type="url"] {
-	width: 350px;
+	width: 100px;
 	height: 20px;
 }
 textarea {
@@ -264,3 +264,5 @@ footer#pageFooter a {
 footer#pageFooter a:hover {
 	color: #952;
 }
+
+/*Queries styles*/
