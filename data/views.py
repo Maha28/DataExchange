@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.core.urlresolvers import resolve, reverse
 from django.shortcuts import render
 from data import models
+import pdb
 
 #Home
 def home(request):

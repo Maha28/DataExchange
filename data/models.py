@@ -228,8 +228,17 @@ class Equal(models.Model):
 #Source Target Dependencies
 class STDependenciesManager(models.Manager):
     def run_query(self, query_data):
-        #pdb.set_trace()
-        pass
+        source = query_date['source'][-1]
+        target = query_date['target'][-1]
+        source_arguments = query_date['source_arguments'].split(',')
+        target_arguments = query_date['target_arguments'].split(',')
+        
+        for source_argument in source_arguments:
+            for target_argument in target_arguments:
+                if source_argument == target_argument:
+                    pass
+                    
+        
         
 class STDependencies(models.Model):
     objects = STDependenciesManager()

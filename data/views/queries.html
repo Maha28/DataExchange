@@ -5,23 +5,23 @@
    <header><h2>Source-Target Dependencies</h2></header>
    		<form method="POST" class="queryForm" action={% url queries %}>
    			{% csrf_token %} 
-   			<select id="source">
+   			<select name="source">
    				{% for source_element in sources %}
    					<option>Source{{source_element.pk}}</option>
    				{% endfor %}
    			</select>
  			(
-   			<input id="source_arguments" class="source-target-dependency-input" type="text" />
+   			<input name="source_arguments" class="source-target-dependency-input" type="text" />
    			)
    			<br/>
    			--->
-   			<select id="target">
+   			<select name="target">
    				{% for target_element in targets %}
    					<option>Target{{target_element.pk}}</option>
    				{% endfor %}
    			</select>
    			(   			
-   			<input id="target" class="source-target-dependency-input" type="text" />
+   			<input name="target_arguments" class="source-target-dependency-input" type="text" />
    			)
    			<button type="submit">Run</button>
    		</form>
