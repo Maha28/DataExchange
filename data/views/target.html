@@ -8,14 +8,14 @@
 	    	<h3>Target{{targets_element.pk}}</h3>
 	    	<table>
 	    		<tr>
-		    		<th>I</th>
-		    		<th>J</th>
+		    		<th>X</th>
+		    		<th>Y</th>
 	    		</tr>    	
 	    	{% for target_element in target %}
 	    		{% if target_element.targets.pk == targets_element.pk %}
 				<tr>
-					<td>{{target_element.I}}</td>
-					<td>{{target_element.J}}</td>
+					<td>{{target_element.X}}</td>
+					<td>{{target_element.Y}}</td>
 				</tr>
 				{% endif %}
 	    	{% endfor %}	
