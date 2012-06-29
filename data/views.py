@@ -163,6 +163,7 @@ def clear_all(request):
     models.Source.objects.clear_all_sources()
     models.Mapping.objects.clear_mapping()
     models.Equal.objects.clear_equal()
+    models.Target.objects.clear_all_targets()
     messages.success(request, "You have successfully cleared everything")
     return HttpResponseRedirect(reverse('database')) 
 

@@ -238,23 +238,21 @@ class STDependenciesManager(models.Manager):
         source_count = 0
         target_count = 0
         for source_argument in source_arguments:
-            ++source_count
+            source_count += 1
             for target_argument in target_arguments:
-                ++target_count
+                target_count += 1
                 if source_argument == target_argument:
-                    mapping_key = 'X' if source_count == 1 else 'Y' 
-                    mapping_value = 'A' if target_count == 1 else 'B' 
+                    mapping_key = 'X' if target_count == 1 else 'Y' 
+                    mapping_value = 'A' if source_count == 1 else 'B' 
                     mapping[mapping_key] = mapping_value
-            
-        
-        #Temporary
+                    #pdb.set_trace()
+                    
+        #Insert to the target    
         for source_element in Source.objects.all():
             if source_element.sources == source_instance:
-                eval('target = Target(X=source_element'+mapping[X]+',Y=source_element'+mapping[Y]+', targets = target_instance')
+                target = eval("Target(X=source_element.%s,Y=source_element.%s, targets = target_instance)" % (mapping['X'], mapping['Y']))
+                #pdb.set_trace()
                 target.save() 
-        
-
-                    
         
         
 class STDependencies(models.Model):
