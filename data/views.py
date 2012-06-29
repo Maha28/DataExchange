@@ -123,7 +123,10 @@ def queries(request):
 
 #Target
 def target(request):
-    return render(request, 'target.html')
+    context = {}
+    context['targets'] = models.Targets.objects.all()
+    context['target'] = models.Target.objects.all()
+    return render(request, 'target.html', context)
 
 def create_new_target(request, view_name):
     target_id = models.Targets.objects.addNewTarget() 

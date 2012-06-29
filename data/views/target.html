@@ -1,14 +1,26 @@
 {%extends "base.html"%}
 {%block title%}Target{%endblock%}
 {%block content%}
+	<section id="view">
     <header><h2>View Target</h2></header>
-	<div class="viewTable">
-    	<h3>Target</h3>
-    	<table>
-    		<tr>
-	    		<th>X</th>
-	    		<th>Y</th>
-    		</tr>
-    	</table>
-    </div>    
+    {% for targets_element in targets %}
+		<div class="viewTable">
+	    	<h3>Target{{targets_element.pk}}</h3>
+	    	<table>
+	    		<tr>
+		    		<th>I</th>
+		    		<th>J</th>
+	    		</tr>    	
+	    	{% for target_element in target %}
+	    		{% if target_element.targets.pk == targets_element.pk %}
+				<tr>
+					<td>{{target_element.I}}</td>
+					<td>{{target_element.J}}</td>
+				</tr>
+				{% endif %}
+	    	{% endfor %}	
+	    	</table> 
+	    </div>
+	{% endfor %}  
+    </section>    
 {%endblock%}
