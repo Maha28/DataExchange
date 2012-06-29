@@ -228,15 +228,21 @@ class Equal(models.Model):
 #Source Target Dependencies
 class STDependenciesManager(models.Manager):
     def run_query(self, query_data):
-        source = query_date['source'][-1]
-        target = query_date['target'][-1]
+        source_instance = Sources.objects.get(pk = query_data['source'][-1])
+        target_instance = Sources.objects.get(pk = query_data['target'][-1])
         source_arguments = query_date['source_arguments'].split(',')
         target_arguments = query_date['target_arguments'].split(',')
         
-        for source_argument in source_arguments:
-            for target_argument in target_arguments:
-                if source_argument == target_argument:
-                    pass
+        #Temporary test
+        for source_element in Source.objects.all():
+            if source_element.sources == source_instance:
+                target = Target(I=source_element.A,J=source_element.B, targets = target_instance)
+                target.save() 
+        
+#        for source_argument in source_arguments:
+#            for target_argument in target_arguments:
+#                if source_argument == target_argument:
+#                    pass
                     
         
         
