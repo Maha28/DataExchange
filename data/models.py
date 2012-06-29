@@ -233,16 +233,27 @@ class STDependenciesManager(models.Manager):
         source_arguments = query_data['source_arguments'].split(',')
         target_arguments = query_data['target_arguments'].split(',')
         
-        #Temporary test
+        #Create the mapping
+        mapping = {}
+        source_count = 0
+        target_count = 0
+        for source_argument in source_arguments:
+            ++source_count
+            for target_argument in target_arguments:
+                ++target_count
+                if source_argument == target_argument:
+                    mapping_key = 'X' if source_count == 1 else 'Y' 
+                    mapping_value = 'A' if target_count == 1 else 'B' 
+                    mapping[mapping_key] = mapping_value
+            
+        
+        #Temporary
         for source_element in Source.objects.all():
             if source_element.sources == source_instance:
-                target = Target(X=source_element.A,Y=source_element.B, targets = target_instance)
+                eval('target = Target(X=source_element'+mapping[X]+',Y=source_element'+mapping[Y]+', targets = target_instance')
                 target.save() 
         
-#        for source_argument in source_arguments:
-#            for target_argument in target_arguments:
-#                if source_argument == target_argument:
-#                    pass
+
                     
         
         
