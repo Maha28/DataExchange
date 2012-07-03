@@ -1,0 +1,55 @@
+{%extends "base.html"%}
+{%block title%}Queries{%endblock%}
+{%block content%}
+   <script type="text/javascript">
+   		function addSourceJoin()
+		{
+   			var source_div = document.getElementById("source_div");
+   			var source_element = document.getElementById("source_element");
+   			new_source = source_element.cloneNode(true);
+   			source_div.appendChild(new_source);
+		}
+   		function addTargetJoin()
+		{
+   			var target_div = document.getElementById("target_div");
+   			var target_element = document.getElementById("target_element");
+   			new_target = target_element.cloneNode(true);
+   			target_div.appendChild(new_target);
+		}		
+   </script>	
+   <section id="querySection">
+   <header><h2>Source-Target Dependencies</h2></header>
+   		<form method="POST" class="queryForm" action={% url queries %}>
+   			{% csrf_token %} 
+   			<div id="source_div">
+   				<div id="source_element">
+		   			<select id="source_select" name="source" >
+		   				{% for source_element in sources %}
+		   					<option>Source{{source_element.pk}}</option>
+		   				{% endfor %}
+		   			</select>
+		 			(
+		   			<input name="source_arguments" class="source-target-dependency-input" type="text" />
+		   			)
+	   			</div>
+	   		</div>
+	   		<button id="add_source_join" type="button" onclick="addSourceJoin()">Add Join</button>	</br>
+   			--->
+   			<div id="target_div">
+   				<div id="target_element">
+		   			<select name="target_select">
+		   				{% for target_element in targets %}
+		   					<option>Target{{target_element.pk}}</option>
+		   				{% endfor %}
+		   			</select>
+		   			(   			
+		   			<input name="target_arguments" class="source-target-dependency-input" type="text" />
+		   			)
+		   		</div>
+	   		</div>
+	   		<button id="add_target_join" type="button" onclick="addTargetJoin()">Add Join</button> </br>
+	   		</br>	
+   			<button type="submit">Run</button>
+   		</form>
+   </section>  
+{%endblock%}
